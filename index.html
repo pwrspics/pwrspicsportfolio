@@ -1,267 +1,208 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>PWRS.PICS PORTFOLIO</title>
 
 <!-- Fonts -->
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;700&display=swap" rel="stylesheet">
 
 <style>
-body {
-  margin: 0;
-  font-family: "Montserrat", sans-serif;
-  color: white;
-  text-align: center;
-  overflow-x: hidden;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  min-height: 100vh;
-  background: linear-gradient(135deg, #0a1f44, #113b6b, #1f6f8b, #99d8d0);
-  background-size: 400% 400%;
-  animation: gradientShift 12s ease infinite;
-}
-@keyframes gradientShift {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
 
-header {
-  padding: 50px 20px 30px 20px;
-}
-header h1 {
-  font-size: 2.2rem;
-  font-weight: 700;
-  margin-bottom: 8px;
-  color: #d6f3ff; /* matches the new code */
-  letter-spacing: 1px;
-  text-shadow: 0 0 10px rgba(0,155,255,0.5);
-  text-transform: uppercase;
-}
-header h2 {
-  font-size: 0.9rem;
-  font-weight: 300;
-  color: #ffffffdd;
-  margin-bottom: 25px;
-}
+    /* MATCHES YOUR ORIGINAL THEME COLORS + ANIMATION */
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: "Montserrat", sans-serif;
+        background: linear-gradient(135deg, #0a1f44, #113b6b, #1f6f8b, #99d8d0);
+        background-size: 400% 400%;
+        animation: gradientShift 12s ease infinite;
+        color: white;
+        text-align: center;
+        min-height: 100vh;
+        overflow-x: hidden;
+    }
 
-/* Albums and nested albums styling */
-.albums {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  justify-items: center;
-  gap: 20px;
-  padding: 15px;
-  margin: 0 auto;
-}
-.album {
-  background: rgba(255,255,255,0.05);
-  border-radius: 15px;
-  width: 200px;
-  height: 180px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  position: relative;
-  overflow: hidden;
-  border: 1px solid rgba(255,255,255,0.2);
-}
-.album img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 15px;
-  position: absolute;
-  top:0;
-  left:0;
-  z-index: 0;
-}
-.album h3 {
-  position: relative;
-  z-index: 1;
-  font-size: 1.5rem;
-  margin: 0;
-}
+    @keyframes gradientShift {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+    }
 
-/* Modal and nested album styling */
-.modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,0.95);
-  display: none;
-  justify-content: center;
-  align-items: flex-start;
-  overflow-y: auto;
-  padding: 20px 0;
-  z-index: 100;
-}
-.modal:target { display: flex; }
+    h1 {
+        font-size: 2rem;
+        margin-top: 25px;
+        font-weight: 700;
+        color: #d6f3ff;
+        text-shadow: 0 0 10px rgba(0,155,255,0.5);
+        letter-spacing: 1px;
+    }
 
-.modal-content {
-  width: 95%;
-  max-width: 800px;
-  margin: 0 auto;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-.nested-albums {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: repeat(2, 1fr);
-  gap: 15px;
-  justify-items: center;
-  width: 100%;
-  margin: 0 auto;
-}
-.nested-albums a {
-  background: rgba(255,255,255,0.05);
-  border-radius: 12px;
-  color: white;
-  text-decoration: none;
-  width: 100%;
-  height: 150px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-  overflow: hidden;
-  border: 1px solid rgba(255,255,255,0.2);
-}
-.nested-albums a img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 12px;
-  position: absolute;
-  top:0;
-  left:0;
-  z-index: 0;
-}
-.nested-albums a span {
-  position: relative;
-  z-index: 1;
-  font-size: 1.1rem;
-  font-weight: 600;
-}
+    .page-container {
+        width: 95%;
+        max-width: 430px;
+        margin: auto;
+        padding-top: 10px;
+    }
 
-.photos-grid-wrapper {
-  width: 100%;
-  max-height: 75vh;
-  overflow-y: auto;
-  margin-top: 20px;
-}
-.photos-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-  gap: 5px;
-  justify-items: center;
-  margin: 0 auto;
-}
-.photos-grid img {
-  width: 100%;
-  border-radius: 12px;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.4);
-  transition: transform 0.3s ease;
-}
-.photos-grid img:hover { transform: scale(1.05); }
-.close-btn {
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  font-size: 2rem;
-  color: white;
-  font-weight: bold;
-  z-index: 101;
-}
+    /* Album Grid (Main Albums + Nested Albums) */
+    .album-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 18px;
+        margin-top: 25px;
+    }
 
-/* Footer links */
-.footer-links {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin: 25px 0;
-}
-.footer-links a {
-  display: inline-block;
-  padding: 10px 20px;
-  background: rgba(255, 255, 255, 0.12);
-  backdrop-filter: blur(10px);
-  border-radius: 10px;
-  border: 1px solid rgba(255,255,255,0.25);
-  color: white;
-  font-weight: 500;
-  text-decoration: none;
-  transition: 0.3s ease;
-}
-.footer-links a:hover {
-  transform: scale(1.07);
-  background: rgba(255,255,255,0.25);
-}
-footer {
-  margin-top: 40px;
-  opacity: 0.7;
-  font-size: 0.7rem;
-}
+    .album {
+        background: rgba(255, 255, 255, 0.12);
+        border: 2px solid rgba(255,255,255,0.35);
+        border-radius: 14px;
+        padding: 20px;
+        backdrop-filter: blur(6px);
+        cursor: pointer;
+        transition: 0.25s ease;
+        height: 150px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 1.1rem;
+        font-weight: 500;
+        color: #d6f3ff;
+        text-shadow: 0 0 6px rgba(0,155,255,0.35);
+    }
 
-@media (max-width: 430px) {
-  .albums { grid-template-columns: 1fr; }
-  .nested-albums { grid-template-columns: 1fr 1fr; grid-template-rows: 2fr; }
-  .photos-grid { grid-template-columns: repeat(2, 1fr); }
-  .album { width: 90%; height: 130px; }
-  .nested-albums a { height: 120px; }
-}
+    .album:hover {
+        transform: scale(1.04);
+        background: rgba(255,255,255,0.22);
+    }
+
+    /* X Button */
+    .back-btn {
+        position: fixed;
+        top: 20px;
+        left: 20px;
+        background: rgba(255,255,255,0.25);
+        padding: 10px 14px;
+        border-radius: 10px;
+        border: 1px solid rgba(255,255,255,0.8);
+        font-size: 1.2rem;
+        cursor: pointer;
+        z-index: 9999;
+        display: none;
+    }
+
+    /* 100 Image Grid */
+    .image-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 12px;
+        margin-top: 25px;
+    }
+
+    .image-grid img {
+        width: 100%;
+        aspect-ratio: 1/1;
+        border-radius: 8px;
+        background: rgba(255,255,255,0.15);
+        border: 1px solid rgba(255,255,255,0.3);
+    }
+
+    /* Hide all pages except main */
+    .page {
+        display: none;
+    }
+    
+    #main-page {
+        display: block;
+    }
+
 </style>
 </head>
+
 <body>
 
-<header>
-  <h1>PWRS.PICS PORTFOLIO</h1>
-  <h2>Sports and Outside Photography Taken by Gregory Powers</h2>
-</header>
+<h1>PWRS.PICS PORTFOLIO</h1>
 
-<section class="albums">
-  <a href="#sports" class="album"><img src="https://via.placeholder.com/300x180?text=Sports+Cover"><h3>Sports</h3></a>
-  <a href="#freshair" class="album"><img src="https://via.placeholder.com/300x180?text=Fresh+Air+Cover"><h3>Fresh Air</h3></a>
-</section>
+<div class="page-container">
+
+    <!-- MAIN PAGE -->
+    <div class="page" id="main-page">
+        <div class="album-grid">
+            <div class="album" onclick="openPage('sports-page')">Sports</div>
+            <div class="album" onclick="openPage('freshair-page')">Fresh Air</div>
+        </div>
+    </div>
+
+    <!-- SPORTS PAGE -->
+    <div class="page" id="sports-page">
+        <div class="album-grid">
+            <div class="album" onclick="openAlbum('football')">Football</div>
+            <div class="album" onclick="openAlbum('basketball')">Basketball</div>
+            <div class="album" onclick="openAlbum('baseball')">Baseball</div>
+            <div class="album" onclick="openAlbum('track')">Track/Cross Country</div>
+            <div class="album" onclick="openAlbum('lacrosse')">Lacrosse</div>
+            <div class="album" onclick="openAlbum('frisbee')">Ultimate Frisbee</div>
+        </div>
+    </div>
+
+    <!-- FRESH AIR PAGE -->
+    <div class="page" id="freshair-page">
+        <div class="album-grid">
+            <div class="album" onclick="openAlbum('sunsets')">Sunsets</div>
+            <div class="album" onclick="openAlbum('animals')">Animals</div>
+            <div class="album" onclick="openAlbum('bigblue')">The Big Blue</div>
+            <div class="album" onclick="openAlbum('holiday')">Holiday Pics</div>
+        </div>
+    </div>
+
+    <!-- IMAGE PAGE -->
+    <div class="page" id="images-page">
+        <div id="image-grid" class="image-grid"></div>
+    </div>
+
+</div>
+
+<button class="back-btn" onclick="goBack()">✕</button>
 
 <script>
-const albums = ['football','basketball','baseball','track','lacrosse','ultimate','sunsets','animals','bigblue','holiday'];
-albums.forEach(album => {
-  const modal = document.createElement('div');
-  modal.id = album;
-  modal.className = 'modal';
-  modal.innerHTML = `
-    <a href='#${['sunsets','animals','bigblue','holiday'].includes(album)?'freshair':'sports'}' class='close-btn'>&times;</a>
-    <div class='modal-content'>
-      <h2>${album.charAt(0).toUpperCase()+album.slice(1).replace(/([A-Z])/g,' $1')} Album</h2>
-      <div class='photos-grid-wrapper'>
-        <div class='photos-grid'>
-          ${Array.from({length:100},(_,i)=>`<img src='https://via.placeholder.com/120x90?text=${album}+${i+1}' alt='${album} ${i+1}'>`).join('')}
-        </div>
-      </div>
-    </div>`;
-  document.body.appendChild(modal);
-});
+    let historyStack = [];
+
+    function openPage(id) {
+        document.querySelectorAll('.page').forEach(p => p.style.display = "none");
+        document.getElementById(id).style.display = "block";
+        document.querySelector('.back-btn').style.display = "block";
+        historyStack.push(id);
+    }
+
+    function openAlbum(albumName) {
+        generateImages(albumName);
+        document.querySelectorAll('.page').forEach(p => p.style.display = "none");
+        document.getElementById("images-page").style.display = "block";
+        document.querySelector('.back-btn').style.display = "block";
+        historyStack.push("images-page");
+    }
+
+    function generateImages(albumName) {
+        const container = document.getElementById("image-grid");
+        container.innerHTML = ""; // clear
+        for (let i = 1; i <= 100; i++) {
+            const img = document.createElement("img");
+            img.alt = albumName + " image " + i;
+            img.loading = "lazy"; // lazy-load for performance
+            container.appendChild(img);
+        }
+    }
+
+    function goBack() {
+        historyStack.pop();
+        let page = historyStack.pop() || "main-page"; 
+        openPage(page);
+        if(page === "main-page"){
+            document.querySelector('.back-btn').style.display = "none";
+        }
+    }
 </script>
 
-<section class="footer-links">
-  <a href="https://www.instagram.com/pwrspics" target="_blank">Instagram</a>
-  <a href="https://www.threads.net" target="_blank">Threads</a>
-  <a href="mailto:gregorypowers.photography@gmail.com">Contact Me</a>
-</section>
-
-<footer>
-  2025 @pwrs.pics
-</footer>
 </body>
 </html>

@@ -10,7 +10,7 @@
 
 <style>
 
-    /* MATCHES YOUR ORIGINAL THEME COLORS + ANIMATION */
+    /* MATCH PWRS.PICS MAIN THEME + GRADIENT ANIMATION */
     body {
         margin: 0;
         padding: 0;
@@ -46,7 +46,6 @@
         padding-top: 10px;
     }
 
-    /* Album Grid (Main Albums + Nested Albums) */
     .album-grid {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
@@ -77,7 +76,7 @@
         background: rgba(255,255,255,0.22);
     }
 
-    /* X Button */
+    /* X BUTTON */
     .back-btn {
         position: fixed;
         top: 20px;
@@ -92,7 +91,7 @@
         display: none;
     }
 
-    /* 100 Image Grid */
+    /* IMAGE GRID */
     .image-grid {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
@@ -100,19 +99,39 @@
         margin-top: 25px;
     }
 
-    .image-grid img {
+    /* SHIMMER LOADING PLACEHOLDER */
+    .shimmer {
         width: 100%;
         aspect-ratio: 1/1;
         border-radius: 8px;
-        background: rgba(255,255,255,0.15);
-        border: 1px solid rgba(255,255,255,0.3);
+        background: linear-gradient(
+            90deg,
+            rgba(255,255,255,0.05) 0%,
+            rgba(255,255,255,0.15) 50%,
+            rgba(255,255,255,0.05) 100%
+        );
+        background-size: 200% 100%;
+        animation: shimmerMove 1.2s infinite;
     }
 
-    /* Hide all pages except main */
+    @keyframes shimmerMove {
+        0% { background-position: -200% 0; }
+        100% { background-position: 200% 0; }
+    }
+
+    .fade-in {
+        opacity: 0;
+        animation: fadeIn 0.6s forwards;
+    }
+
+    @keyframes fadeIn {
+        to { opacity: 1; }
+    }
+
     .page {
         display: none;
     }
-    
+
     #main-page {
         display: block;
     }
@@ -137,26 +156,26 @@
     <!-- SPORTS PAGE -->
     <div class="page" id="sports-page">
         <div class="album-grid">
-            <div class="album" onclick="openAlbum('football')">Football</div>
-            <div class="album" onclick="openAlbum('basketball')">Basketball</div>
-            <div class="album" onclick="openAlbum('baseball')">Baseball</div>
-            <div class="album" onclick="openAlbum('track')">Track/Cross Country</div>
-            <div class="album" onclick="openAlbum('lacrosse')">Lacrosse</div>
-            <div class="album" onclick="openAlbum('frisbee')">Ultimate Frisbee</div>
+            <div class="album" onclick="openAlbum('Football')">Football</div>
+            <div class="album" onclick="openAlbum('Basketball')">Basketball</div>
+            <div class="album" onclick="openAlbum('Baseball')">Baseball</div>
+            <div class="album" onclick="openAlbum('Track')">Track/Cross Country</div>
+            <div class="album" onclick="openAlbum('Lacrosse')">Lacrosse</div>
+            <div class="album" onclick="openAlbum('Frisbee')">Ultimate Frisbee</div>
         </div>
     </div>
 
     <!-- FRESH AIR PAGE -->
     <div class="page" id="freshair-page">
         <div class="album-grid">
-            <div class="album" onclick="openAlbum('sunsets')">Sunsets</div>
-            <div class="album" onclick="openAlbum('animals')">Animals</div>
-            <div class="album" onclick="openAlbum('bigblue')">The Big Blue</div>
-            <div class="album" onclick="openAlbum('holiday')">Holiday Pics</div>
+            <div class="album" onclick="openAlbum('Sunsets')">Sunsets</div>
+            <div class="album" onclick="openAlbum('Animals')">Animals</div>
+            <div class="album" onclick="openAlbum('BigBlue')">The Big Blue</div>
+            <div class="album" onclick="openAlbum('Holiday')">Holiday Pics</div>
         </div>
     </div>
 
-    <!-- IMAGE PAGE -->
+    <!-- IMAGES PAGE -->
     <div class="page" id="images-page">
         <div id="image-grid" class="image-grid"></div>
     </div>
@@ -176,29 +195,43 @@
     }
 
     function openAlbum(albumName) {
-        generateImages(albumName);
+        buildShimmerGrid(); // Load shimmer placeholders instantly
         document.querySelectorAll('.page').forEach(p => p.style.display = "none");
         document.getElementById("images-page").style.display = "block";
         document.querySelector('.back-btn').style.display = "block";
         historyStack.push("images-page");
+
+        setTimeout(() => {
+            loadRealImages(albumName);
+        }, 500); // load real images after shimmer effect
     }
 
-    function generateImages(albumName) {
+    function buildShimmerGrid() {
         const container = document.getElementById("image-grid");
-        container.innerHTML = ""; // clear
+        container.innerHTML = "";
+        for (let i = 0; i < 100; i++) {
+            const shimmer = document.createElement("div");
+            shimmer.classList.add("shimmer");
+            container.appendChild(shimmer);
+        }
+    }
+
+    function loadRealImages(albumName) {
+        const container = document.getElementById("image-grid");
+        container.innerHTML = "";
         for (let i = 1; i <= 100; i++) {
-            const img = document.createElement("img");
-            img.alt = albumName + " image " + i;
-            img.loading = "lazy"; // lazy-load for performance
+            const img = document.createElement("div");
+            img.classList.add("shimmer", "fade-in");
+            img.style.background = "rgba(255,255,255,0.15)";
             container.appendChild(img);
         }
     }
 
     function goBack() {
         historyStack.pop();
-        let page = historyStack.pop() || "main-page"; 
+        let page = historyStack.pop() || "main-page";
         openPage(page);
-        if(page === "main-page"){
+        if (page === "main-page") {
             document.querySelector('.back-btn').style.display = "none";
         }
     }

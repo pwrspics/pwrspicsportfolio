@@ -180,58 +180,58 @@
 <button class="back-btn" onclick="goBack()">✕</button>
 
 <script>
-let historyStack = [];
+    let historyStack = [];
 
-function openPage(id) {
-    document.querySelectorAll('.page').forEach(p => p.style.display = "none");
-    document.getElementById(id).style.display = "block";
-    document.querySelector('.back-btn').style.display = "block";
-    historyStack.push(id);
-}
-
-function openAlbum(albumName) {
-    buildShimmerGrid(albumName);
-    document.querySelectorAll('.page').forEach(p => p.style.display = "none");
-    document.getElementById("images-page").style.display = "block";
-    document.querySelector('.back-btn').style.display = "block";
-    historyStack.push("images-page");
-
-    setTimeout(() => {
-        loadRealImages(albumName);
-    }, 500);
-}
-
-function buildShimmerGrid(albumName) {
-    const container = document.getElementById("image-grid");
-    container.innerHTML = "";
-    let count = 30;
-    if(albumName.startsWith('MustBook')) count = 30;
-    for (let i = 0; i < count; i++) {
-        const shimmer = document.createElement("div");
-        shimmer.classList.add("shimmer");
-        container.appendChild(shimmer);
+    function openPage(id) {
+        document.querySelectorAll('.page').forEach(p => p.style.display = "none");
+        document.getElementById(id).style.display = "block";
+        document.querySelector('.back-btn').style.display = "block";
+        historyStack.push(id);
     }
-}
 
-function loadRealImages(albumName) {
-    const container = document.getElementById("image-grid");
-    container.innerHTML = "";
-    let count = 30;
-    if(albumName.startsWith('MustBook')) count = 30;
-    for (let i = 1; i <= count; i++) {
-        const img = document.createElement("div");
-        img.classList.add("shimmer", "fade-in");
-        img.style.background = "rgba(255,255,255,0.15)";
-        container.appendChild(img);
+    function openAlbum(albumName) {
+        buildShimmerGrid(albumName);
+        document.querySelectorAll('.page').forEach(p => p.style.display = "none");
+        document.getElementById("images-page").style.display = "block";
+        document.querySelector('.back-btn').style.display = "block";
+        historyStack.push("images-page");
+
+        setTimeout(() => {
+            loadRealImages(albumName);
+        }, 500);
     }
-}
 
-function goBack() {
-    historyStack.pop();
-    let page = historyStack.pop() || "main-page";
-    openPage(page);
-    if (page === "main-page") document.querySelector('.back-btn').style.display = "none";
-}
+    function buildShimmerGrid(albumName) {
+        const container = document.getElementById("image-grid");
+        container.innerHTML = "";
+        let count = albumName.startsWith('MustBook') ? 30 : 150;
+        for (let i = 0; i < count; i++) {
+            const shimmer = document.createElement("div");
+            shimmer.classList.add("shimmer");
+            container.appendChild(shimmer);
+        }
+    }
+
+    function loadRealImages(albumName) {
+        const container = document.getElementById("image-grid");
+        container.innerHTML = "";
+        let count = albumName.startsWith('MustBook') ? 30 : 150;
+        for (let i = 1; i <= count; i++) {
+            const img = document.createElement("div");
+            img.classList.add("shimmer", "fade-in");
+            img.style.background = "rgba(255,255,255,0.15)";
+            container.appendChild(img);
+        }
+    }
+
+    function goBack() {
+        historyStack.pop();
+        let page = historyStack.pop() || "main-page";
+        openPage(page);
+        if (page === "main-page") {
+            document.querySelector('.back-btn').style.display = "none";
+        }
+    }
 </script>
 
 </body>

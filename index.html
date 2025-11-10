@@ -15,10 +15,10 @@ body {
   text-align: center;
 }
 header {
-  padding: 80px 20px 40px 20px;
+  padding: 60px 20px 30px 20px;
 }
 header h1 {
-  font-size: 3rem;
+  font-size: 2.8rem;
   margin: 0 0 10px;
   text-transform: lowercase;
   color: #d6f3ff;
@@ -27,23 +27,25 @@ header h1 {
 header h2 {
   font-size: 1rem;
   font-weight: 300;
-  margin: 0 0 25px;
+  margin: 0 0 20px;
   color: #ffffffdd;
 }
 .albums {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 20px;
-  padding: 20px;
+  padding: 15px;
 }
 .album {
   background: rgba(255,255,255,0.1);
   border-radius: 15px;
-  padding: 40px 20px;
+  padding: 30px 15px;
   cursor: pointer;
   transition: transform 0.5s ease, background 0.5s ease;
   text-decoration: none;
   color: white;
+  position: relative;
+  overflow: hidden;
 }
 .album:hover {
   transform: scale(1.08) rotate(-1deg);
@@ -52,6 +54,25 @@ header h2 {
 .album h3 {
   margin: 0;
   font-size: 1.5rem;
+  position: relative;
+  display: inline-block;
+  padding: 5px 10px;
+}
+.album h3::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border: 2px solid #4cc9f0;
+  border-radius: 8px;
+  animation: borderMove 3s linear infinite;
+  pointer-events: none;
+}
+@keyframes borderMove {
+  0% { border-color: #4cc9f0; }
+  25% { border-color: #1f6f8b; }
+  50% { border-color: #0a1f44; }
+  75% { border-color: #4cc9f0; }
+  100% { border-color: #1f6f8b; }
 }
 .modal {
   position: fixed;
@@ -67,7 +88,7 @@ header h2 {
   padding: 20px;
   z-index: 100;
   opacity: 0;
-  transform: scale(0.9);
+  transform: scale(0.95);
   transition: opacity 0.5s ease, transform 0.5s ease;
 }
 .modal:target {
@@ -76,43 +97,53 @@ header h2 {
   transform: scale(1);
 }
 .modal-content {
-  max-width: 90%;
+  max-width: 95%;
+  max-height: 95vh;
   text-align: center;
+  overflow-y: auto;
+  padding: 10px;
   animation: fadeIn 0.5s ease;
-}
-@keyframes fadeIn {
-  from {opacity: 0; transform: translateY(-20px);}
-  to {opacity: 1; transform: translateY(0);}
 }
 .nested-albums {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 15px;
-  margin-top: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 10px;
+  margin-top: 15px;
 }
 .nested-albums a {
   background: rgba(255,255,255,0.1);
-  padding: 20px;
+  padding: 15px;
   border-radius: 12px;
   color: white;
   text-decoration: none;
   transition: transform 0.5s ease, background 0.5s ease;
+  position: relative;
+}
+.nested-albums a::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border: 2px solid #0af0ff;
+  border-radius: 8px;
+  animation: borderMove 4s linear infinite;
+  pointer-events: none;
 }
 .nested-albums a:hover {
-  transform: scale(1.08) rotate(1deg);
-  background: rgba(255,255,255,0.25);
+  transform: scale(1.05) rotate(1deg);
+  background: rgba(255,255,255,0.2);
 }
 .photos-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-  gap: 10px;
-  margin-top: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  gap: 5px;
+  margin-top: 15px;
+  justify-items: center;
 }
 .photos-grid img {
   width: 100%;
   border-radius: 12px;
   box-shadow: 0 4px 15px rgba(0,0,0,0.4);
-  transition: transform 0.5s ease, box-shadow 0.5s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 .photos-grid img:hover {
   transform: scale(1.05) rotate(-1deg);
@@ -120,8 +151,8 @@ header h2 {
 }
 .close-btn {
   position: absolute;
-  top: 20px;
-  right: 30px;
+  top: 15px;
+  right: 20px;
   font-size: 2rem;
   color: white;
   text-decoration: none;
@@ -131,14 +162,14 @@ header h2 {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  gap: 15px;
-  margin: 40px 0;
+  gap: 10px;
+  margin: 25px 0;
 }
 .footer-links a {
   display: inline-block;
-  padding: 12px 25px;
+  padding: 10px 20px;
   background: rgba(255,255,255,0.15);
-  border-radius: 12px;
+  border-radius: 10px;
   color: white;
   font-weight: 500;
   text-decoration: none;
@@ -153,10 +184,16 @@ header h2 {
   50% { background-position: 100% 50%; }
   100% { background-position: 0% 50%; }
 }
-@media (max-width: 600px) {
-  header h1 { font-size: 2.2rem; }
-  header h2 { font-size: 0.9rem; }
+@keyframes fadeIn {
+  from {opacity: 0; transform: translateY(-20px);}
+  to {opacity: 1; transform: translateY(0);}
+}
+@media (max-width: 500px) {
+  header h1 { font-size: 2rem; }
+  header h2 { font-size: 0.85rem; }
   .album h3 { font-size: 1.2rem; }
+  .nested-albums { grid-template-columns: 1fr 1fr; }
+  .photos-grid { grid-template-columns: repeat(auto-fit, minmax(80px, 1fr)); }
 }
 </style>
 </head>
@@ -169,7 +206,7 @@ header h2 {
   <a href="#sports" class="album"><h3>Sports</h3></a>
   <a href="#freshair" class="album"><h3>Fresh Air</h3></a>
 </section>
-<!-- Sports Albums -->
+
 <div id="sports" class="modal">
   <div class="modal-content">
     <a href="#" class="close-btn">&times;</a>
@@ -184,7 +221,6 @@ header h2 {
     </div>
   </div>
 </div>
-<!-- Fresh Air Albums -->
 <div id="freshair" class="modal">
   <div class="modal-content">
     <a href="#" class="close-btn">&times;</a>
@@ -196,89 +232,26 @@ header h2 {
     </div>
   </div>
 </div>
-<!-- Static 100 placeholders for all smaller albums -->
-<!-- Example block for Football (repeat structure for all others) -->
-<div id="football" class="modal">
-  <div class="modal-content">
-    <a href="#" class="close-btn">&times;</a>
-    <h2>Football Album</h2>
-    <div class="photos-grid">
-      "+Array.from({length:100},(_,i)=>`<img src="https://via.placeholder.com/120x90?text=Football+${i+1}" alt="">`).join('')+"
-    </div>
-  </div>
-</div>
-<div id="basketball" class="modal">
-  <div class="modal-content">
-    <a href="#" class="close-btn">&times;</a>
-    <h2>Basketball Album</h2>
-    <div class="photos-grid">
-      "+Array.from({length:100},(_,i)=>`<img src="https://via.placeholder.com/120x90?text=Basketball+${i+1}" alt="">`).join('')+"
-    </div>
-  </div>
-</div>
-<div id="baseball" class="modal">
-  <div class="modal-content">
-    <a href="#" class="close-btn">&times;</a>
-    <h2>Baseball Album</h2>
-    <div class="photos-grid">
-      "+Array.from({length:100},(_,i)=>`<img src="https://via.placeholder.com/120x90?text=Baseball+${i+1}" alt="">`).join('')+"
-    </div>
-  </div>
-</div>
-<div id="track" class="modal">
-  <div class="modal-content">
-    <a href="#" class="close-btn">&times;</a>
-    <h2>Track / Cross Country Album</h2>
-    <div class="photos-grid">
-      "+Array.from({length:100},(_,i)=>`<img src="https://via.placeholder.com/120x90?text=Track+${i+1}" alt="">`).join('')+"
-    </div>
-  </div>
-</div>
-<div id="lacrosse" class="modal">
-  <div class="modal-content">
-    <a href="#" class="close-btn">&times;</a>
-    <h2>Lacrosse Album</h2>
-    <div class="photos-grid">
-      "+Array.from({length:100},(_,i)=>`<img src="https://via.placeholder.com/120x90?text=Lacrosse+${i+1}" alt="">`).join('')+"
-    </div>
-  </div>
-</div>
-<div id="ultimate" class="modal">
-  <div class="modal-content">
-    <a href="#" class="close-btn">&times;</a>
-    <h2>Ultimate Frisbee Album</h2>
-    <div class="photos-grid">
-      "+Array.from({length:100},(_,i)=>`<img src="https://via.placeholder.com/120x90?text=Ultimate+${i+1}" alt="">`).join('')+"
-    </div>
-  </div>
-</div>
-<div id="sunsets" class="modal">
-  <div class="modal-content">
-    <a href="#" class="close-btn">&times;</a>
-    <h2>Sunsets Album</h2>
-    <div class="photos-grid">
-      "+Array.from({length:100},(_,i)=>`<img src="https://via.placeholder.com/120x90?text=Sunsets+${i+1}" alt="">`).join('')+"
-    </div>
-  </div>
-</div>
-<div id="animals" class="modal">
-  <div class="modal-content">
-    <a href="#" class="close-btn">&times;</a>
-    <h2>Animals Album</h2>
-    <div class="photos-grid">
-      "+Array.from({length:100},(_,i)=>`<img src="https://via.placeholder.com/120x90?text=Animals+${i+1}" alt="">`).join('')+"
-    </div>
-  </div>
-</div>
-<div id="lakes" class="modal">
-  <div class="modal-content">
-    <a href="#" class="close-btn">&times;</a>
-    <h2>Lakes / Ocean Album</h2>
-    <div class="photos-grid">
-      "+Array.from({length:100},(_,i)=>`<img src="https://via.placeholder.com/120x90?text=Lakes+${i+1}" alt="">`).join('')+"
-    </div>
-  </div>
-</div>
+
+<!-- Generate fully written 100-image placeholders for each smaller album -->
+<script>
+const albums = ['football','basketball','baseball','track','lacrosse','ultimate','sunsets','animals','lakes'];
+albums.forEach(album => {
+  const modal = document.createElement('div');
+  modal.id = album;
+  modal.className = 'modal';
+  modal.innerHTML = `
+    <div class='modal-content'>
+      <a href='#${album==='sunsets'||album==='animals'||album==='lakes'?'freshair':'sports'}' class='close-btn'>&times;</a>
+      <h2>${album.charAt(0).toUpperCase()+album.slice(1).replace('/',' / ')} Album</h2>
+      <div class='photos-grid'>
+        ${Array.from({length:100},(_,i)=>`<img src='https://via.placeholder.com/120x90?text=${album}+${i+1}' alt='${album} ${i+1}'>`).join('')}
+      </div>
+    </div>`;
+  document.body.appendChild(modal);
+});
+</script>
+
 <section class="footer-links">
   <a href="https://www.instagram.com/pwrspics" target="_blank">Instagram</a>
   <a href="https://www.threads.net" target="_blank">Threads</a>

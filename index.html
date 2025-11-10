@@ -180,41 +180,59 @@
 <button class="back-btn" onclick="goBack()">✕</button>
 
 <script>
-    let historyStack = [];
+let historyStack = [];
 
-    function openPage(id) {
-        document.querySelectorAll('.page').forEach(p => p.style.display = "none");
-        document.getElementById(id).style.display = "block";
-        document.querySelector('.back-btn').style.display = "block";
-        historyStack.push(id);
+function openPage(id) {
+    document.querySelectorAll('.page').forEach(p => p.style.display = "none");
+    document.getElementById(id).style.display = "block";
+    document.querySelector('.back-btn').style.display = "block";
+    historyStack.push(id);
+}
+
+function openAlbum(albumName) {
+    buildShimmerGrid(albumName);
+    document.querySelectorAll('.page').forEach(p => p.style.display = "none");
+    document.getElementById("images-page").style.display = "block";
+    document.querySelector('.back-btn').style.display = "block";
+    historyStack.push("images-page");
+
+    setTimeout(() => {
+        loadRealImages(albumName);
+    }, 500);
+}
+
+function buildShimmerGrid(albumName) {
+    const container = document.getElementById("image-grid");
+    container.innerHTML = "";
+    let count = 30;
+    if(albumName.startsWith('MustBook')) count = 30;
+    for (let i = 0; i < count; i++) {
+        const shimmer = document.createElement("div");
+        shimmer.classList.add("shimmer");
+        container.appendChild(shimmer);
     }
+}
 
-    function openAlbum(albumName) {
-        buildShimmerGrid();
-        document.querySelectorAll('.page').forEach(p => p.style.display = "none");
-        document.getElementById("images-page").style.display = "block";
-        document.querySelector('.back-btn').style.display = "block";
-        historyStack.push("images-page");
-
-        setTimeout(() => {
-            loadRealImages(albumName);
-        }, 500);
+function loadRealImages(albumName) {
+    const container = document.getElementById("image-grid");
+    container.innerHTML = "";
+    let count = 30;
+    if(albumName.startsWith('MustBook')) count = 30;
+    for (let i = 1; i <= count; i++) {
+        const img = document.createElement("div");
+        img.classList.add("shimmer", "fade-in");
+        img.style.background = "rgba(255,255,255,0.15)";
+        container.appendChild(img);
     }
+}
 
-    function buildShimmerGrid() {
-        const container = document.getElementById("image-grid");
-        container.innerHTML = "";
-        for (let i = 0; i < 30; i++) {
-            const shimmer = document.createElement("div");
-            shimmer.classList.add("shimmer");
-            container.appendChild(shimmer);
-        }
-    }
+function goBack() {
+    historyStack.pop();
+    let page = historyStack.pop() || "main-page";
+    openPage(page);
+    if (page === "main-page") document.querySelector('.back-btn').style.display = "none";
+}
+</script>
 
-    function loadRealImages(albumName) {
-        const container = document.getElementById("image-grid");
-        container.innerHTML = "";
-        for (let i = 1; i <= 30; i++) {
-            const img = document.createElement("div");
-            img.classList.add("shimmer", "fade-in");
-            img.style.background = "rgba(255,255,255,0.15)";
+</body>
+</html>

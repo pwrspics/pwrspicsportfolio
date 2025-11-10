@@ -1,241 +1,216 @@
+<!-- Full merged HTML + JS with album name updates, centered layout, lazy image loading, gradient background, iPhone layout adjustments -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PWRS.PICS PORTFOLIO</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PWRS.PICS PORTFOLIO</title>
 
-<!-- Fonts -->
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;700&display=swap" rel="stylesheet">
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;700&display=swap" rel="stylesheet">
 
-<style>
-
-    /* MATCH PWRS.PICS MAIN THEME + GRADIENT ANIMATION */
+  <style>
     body {
-        margin: 0;
-        padding: 0;
-        font-family: "Montserrat", sans-serif;
-        background: linear-gradient(135deg, #0a1f44, #113b6b, #1f6f8b, #99d8d0);
-        background-size: 400% 400%;
-        animation: gradientShift 12s ease infinite;
-        color: white;
-        text-align: center;
-        min-height: 100vh;
-        overflow-x: hidden;
+      margin: 0;
+      padding: 0;
+      font-family: "Montserrat", sans-serif;
+      background: linear-gradient(135deg, #0a1f44, #113b6b, #1f6f8b, #99d8d0);
+      background-size: 400% 400%;
+      animation: gradientShift 12s ease infinite;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      overflow-x: hidden;
+      text-align: center;
     }
 
     @keyframes gradientShift {
-        0% { background-position: 0% 50%; }
-        50% { background-position: 100% 50%; }
-        100% { background-position: 0% 50%; }
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .main-wrapper {
+      width: 100%;
+      max-width: 430px; /* iPhone 16 Pro Max safe space width */
+      padding: 20px 10px;
+      box-sizing: border-box;
     }
 
     h1 {
-        font-size: 2rem;
-        margin-top: 25px;
-        font-weight: 700;
-        color: #d6f3ff;
-        text-shadow: 0 0 10px rgba(0,155,255,0.5);
-        letter-spacing: 1px;
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+      color: #d6f3ff;
+      letter-spacing: 1px;
+      text-shadow: 0 0 10px rgba(0,155,255,0.5);
     }
 
-    .page-container {
-        width: 95%;
-        max-width: 430px;
-        margin: auto;
-        padding-top: 10px;
+    .albums-grid, .nested-grid, .photos-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      justify-items: center;
+      margin-top: 20px;
     }
 
-    .album-grid {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 18px;
-        margin-top: 25px;
+    .album, .nested-album {
+      width: 110px;
+      height: 110px;
+      border-radius: 12px;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.25);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: #d6f3ff;
+      font-size: 0.8rem;
+      text-shadow: 0 0 6px rgba(0,0,0,0.4);
+      backdrop-filter: blur(10px);
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
     }
 
-    .album {
-        background: rgba(255, 255, 255, 0.12);
-        border: 2px solid rgba(255,255,255,0.35);
-        border-radius: 14px;
-        padding: 20px;
-        backdrop-filter: blur(6px);
-        cursor: pointer;
-        transition: 0.25s ease;
-        height: 150px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-size: 1.1rem;
-        font-weight: 500;
-        color: #d6f3ff;
-        text-shadow: 0 0 6px rgba(0,155,255,0.35);
+    .album img, .nested-album img {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      top: 0;
+      left: 0;
+      opacity: 0.65;
     }
 
-    .album:hover {
-        transform: scale(1.04);
-        background: rgba(255,255,255,0.22);
+    .album span, .nested-album span {
+      position: relative;
+      z-index: 10;
     }
 
-    /* X BUTTON */
-    .back-btn {
-        position: fixed;
-        top: 20px;
-        left: 20px;
-        background: rgba(255,255,255,0.25);
-        padding: 10px 14px;
-        border-radius: 10px;
-        border: 1px solid rgba(255,255,255,0.8);
-        font-size: 1.2rem;
-        cursor: pointer;
-        z-index: 9999;
-        display: none;
+    .photos-grid {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      padding-bottom: 80px;
     }
 
-    /* IMAGE GRID */
-    .image-grid {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 12px;
-        margin-top: 25px;
+    .photos-grid img {
+      width: 100%;
+      height: 110px;
+      object-fit: cover;
+      border-radius: 8px;
     }
 
-    /* SHIMMER LOADING PLACEHOLDER */
-    .shimmer {
-        width: 100%;
-        aspect-ratio: 1/1;
-        border-radius: 8px;
-        background: linear-gradient(
-            90deg,
-            rgba(255,255,255,0.05) 0%,
-            rgba(255,255,255,0.15) 50%,
-            rgba(255,255,255,0.05) 100%
-        );
-        background-size: 200% 100%;
-        animation: shimmerMove 1.2s infinite;
-    }
+    .hidden { display: none; }
 
-    @keyframes shimmerMove {
-        0% { background-position: -200% 0; }
-        100% { background-position: 200% 0; }
+    .close-btn {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      width: 38px;
+      height: 38px;
+      background: rgba(255,255,255,0.2);
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.35);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      color: #d6f3ff;
+      cursor: pointer;
+      z-index: 100;
+      backdrop-filter: blur(8px);
     }
-
-    .fade-in {
-        opacity: 0;
-        animation: fadeIn 0.6s forwards;
-    }
-
-    @keyframes fadeIn {
-        to { opacity: 1; }
-    }
-
-    .page {
-        display: none;
-    }
-
-    #main-page {
-        display: block;
-    }
-
-</style>
+  </style>
 </head>
-
 <body>
+  <div class="close-btn hidden" id="closeBtn">×</div>
 
-<h1>PWRS.PICS PORTFOLIO</h1>
+  <div class="main-wrapper">
+    <h1>PWRS.PICS PORTFOLIO</h1>
 
-<div class="page-container">
-
-    <!-- MAIN PAGE -->
-    <div class="page" id="main-page">
-        <div class="album-grid">
-            <div class="album" onclick="openPage('sports-page')">Sports</div>
-            <div class="album" onclick="openPage('freshair-page')">Fresh Air</div>
-        </div>
+    <!-- Main Albums -->
+    <div id="albumsView" class="albums-grid">
+      <div class="album" data-album="sports">
+        <img src="cover-sports.jpg" alt="">
+        <span>Sports</span>
+      </div>
+      <div class="album" data-album="outside-scenery">
+        <img src="cover-outside.jpg" alt="">
+        <span>Outside Scenery</span>
+      </div>
     </div>
 
-    <!-- SPORTS PAGE -->
-    <div class="page" id="sports-page">
-        <div class="album-grid">
-            <div class="album" onclick="openAlbum('Football')">Football</div>
-            <div class="album" onclick="openAlbum('Basketball')">Basketball</div>
-            <div class="album" onclick="openAlbum('Baseball')">Baseball</div>
-            <div class="album" onclick="openAlbum('Track')">Track/Cross Country</div>
-            <div class="album" onclick="openAlbum('Lacrosse')">Lacrosse</div>
-            <div class="album" onclick="openAlbum('Frisbee')">Ultimate Frisbee</div>
-        </div>
+    <!-- Nested Albums -->
+    <div id="nestedView" class="nested-grid hidden">
+      <div class="nested-album" data-nested="hydro-photography">
+        <img src="cover-hydro.jpg" alt="">
+        <span>Hydro Photography</span>
+      </div>
+      <div class="nested-album" data-nested="night-shots">
+        <img src="cover-night.jpg" alt="">
+        <span>Night Shots</span>
+      </div>
     </div>
 
-    <!-- FRESH AIR PAGE -->
-    <div class="page" id="freshair-page">
-        <div class="album-grid">
-            <div class="album" onclick="openAlbum('Sunsets')">Sunsets</div>
-            <div class="album" onclick="openAlbum('Animals')">Animals</div>
-            <div class="album" onclick="openAlbum('BigBlue')">The Big Blue</div>
-            <div class="album" onclick="openAlbum('Holiday')">Holiday Pics</div>
-        </div>
-    </div>
+    <!-- Photos -->
+    <div id="photosView" class="photos-grid hidden"></div>
+  </div>
 
-    <!-- IMAGES PAGE -->
-    <div class="page" id="images-page">
-        <div id="image-grid" class="image-grid"></div>
-    </div>
+  <script>
+    const albumsView = document.getElementById("albumsView");
+    const nestedView = document.getElementById("nestedView");
+    const photosView = document.getElementById("photosView");
+    const closeBtn = document.getElementById("closeBtn");
 
-</div>
+    let currentLevel = "albums";
 
-<button class="back-btn" onclick="goBack()">✕</button>
-
-<script>
-    let historyStack = [];
-
-    function openPage(id) {
-        document.querySelectorAll('.page').forEach(p => p.style.display = "none");
-        document.getElementById(id).style.display = "block";
-        document.querySelector('.back-btn').style.display = "block";
-        historyStack.push(id);
+    function show(view) {
+      albumsView.classList.add("hidden");
+      nestedView.classList.add("hidden");
+      photosView.classList.add("hidden");
+      document.getElementById(view).classList.remove("hidden");
+      closeBtn.classList.remove("hidden");
+      currentLevel = view;
     }
 
-    function openAlbum(albumName) {
-        buildShimmerGrid(); // Load shimmer placeholders instantly
-        document.querySelectorAll('.page').forEach(p => p.style.display = "none");
-        document.getElementById("images-page").style.display = "block";
-        document.querySelector('.back-btn').style.display = "block";
-        historyStack.push("images-page");
-
-        setTimeout(() => {
-            loadRealImages(albumName);
-        }, 500); // load real images after shimmer effect
+    function backHome() {
+      albumsView.classList.remove("hidden");
+      nestedView.classList.add("hidden");
+      photosView.classList.add("hidden");
+      closeBtn.classList.add("hidden");
+      currentLevel = "albums";
+      photosView.innerHTML = "";
     }
 
-    function buildShimmerGrid() {
-        const container = document.getElementById("image-grid");
-        container.innerHTML = "";
-        for (let i = 0; i < 100; i++) {
-            const shimmer = document.createElement("div");
-            shimmer.classList.add("shimmer");
-            container.appendChild(shimmer);
-        }
-    }
+    closeBtn.onclick = backHome;
 
-    function loadRealImages(albumName) {
-        const container = document.getElementById("image-grid");
-        container.innerHTML = "";
-        for (let i = 1; i <= 100; i++) {
-            const img = document.createElement("div");
-            img.classList.add("shimmer", "fade-in");
-            img.style.background = "rgba(255,255,255,0.15)";
-            container.appendChild(img);
-        }
-    }
+    albumsView.addEventListener("click", e => {
+      if (e.target.closest(".album")) {
+        show("nestedView");
+      }
+    });
 
-    function goBack() {
-        historyStack.pop();
-        let page = historyStack.pop() || "main-page";
-        openPage(page);
-        if (page === "main-page") {
-            document.querySelector('.back-btn').style.display = "none";
-        }
-    }
-</script>
+    nestedView.addEventListener("click", e => {
+      const item = e.target.closest(".nested-album");
+      if (!item) return;
 
+      const type = item.getAttribute("data-nested");
+      loadImages(type);
+      show("photosView");
+    });
+
+    function loadImages(folder) {
+      photosView.innerHTML = "";
+      for (let i = 1; i <= 100; i++) {
+        const img = document.createElement("img");
+        img.loading = "lazy";
+        img.src = `https://raw.githubusercontent.com/yourname/yourrepo/main/${folder}/${i}.jpg`;
+        photosView.appendChild(img);
+      }
+    }
+  </script>
 </body>
 </html>

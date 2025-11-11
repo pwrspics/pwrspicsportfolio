@@ -183,16 +183,16 @@
     let historyStack = [];
 
     function openPage(id) {
-        // FIX: ensure back button doesn't block clicks
+        // Enable taps
         document.querySelector('.back-btn').style.pointerEvents = "none";
-
         document.querySelectorAll('.page').forEach(p => p.style.display = "none");
         document.getElementById(id).style.display = "block";
-
+        // Re-enable back button after page is visible
+        setTimeout(() => {
+            document.querySelector('.back-btn').style.pointerEvents = "auto";
+        }, 200);
         document.querySelector('.back-btn').style.display = "block";
-        document.querySelector('.back-btn').style.pointerEvents = "auto";
-
-        historyStack.push(id);
+        historyStack.push(id);(id);
     }(id);
     }
 

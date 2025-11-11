@@ -183,20 +183,31 @@
     let historyStack = [];
 
     function openPage(id) {
+        // FIX: ensure back button doesn't block clicks
+        document.querySelector('.back-btn').style.pointerEvents = "none";
+
         document.querySelectorAll('.page').forEach(p => p.style.display = "none");
         document.getElementById(id).style.display = "block";
+
         document.querySelector('.back-btn').style.display = "block";
+        document.querySelector('.back-btn').style.pointerEvents = "auto";
+
         historyStack.push(id);
+    }(id);
     }
 
     function openAlbum(albumName) {
-        buildShimmerGrid(albumName);
+        historyStack.push('images-page');
         document.querySelectorAll('.page').forEach(p => p.style.display = "none");
         document.getElementById("images-page").style.display = "block";
         document.querySelector('.back-btn').style.display = "block";
-        historyStack.push("images-page");
-
+        buildShimmerGrid(albumName);
         setTimeout(() => {
+            loadRealImages(albumName);
+        }, 400);
+    }
+
+    setTimeout(() => {
             loadRealImages(albumName);
         }, 500);
     }

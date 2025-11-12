@@ -39,12 +39,14 @@ h1 {
     text-shadow: 0 0 10px rgba(0,155,255,0.5);
     letter-spacing: 1px;
     line-height: 1.2em;
+    text-transform: uppercase;
 }
 
 .subtitle {
-    font-size: 2rem;
+    font-size: 2rem; /* Same size as main title */
     display:block;
     margin-top: 0.2em;
+    text-transform: uppercase;
 }
 
 .page-container {
@@ -329,7 +331,7 @@ function openPage(id, title) {
     // Update title
     if(title){
         titleStack.push(document.getElementById('main-title').innerHTML);
-        document.getElementById('main-title').innerHTML = `PWRS.PICS<br><span class="subtitle">${title}</span>`;
+        document.getElementById('main-title').innerHTML = `PWRS.PICS<br><span class="subtitle">${title.toUpperCase()}</span>`;
     } else if(id==='main-page'){
         document.getElementById('main-title').innerHTML = `PWRS.PICS<br><span class="subtitle">PORTFOLIO</span>`;
         titleStack = [];
@@ -348,7 +350,7 @@ function openAlbum(albumName) {
 
     // Update title for nested albums
     titleStack.push(document.getElementById('main-title').innerHTML);
-    document.getElementById('main-title').innerHTML = `PWRS.PICS<br><span class="subtitle">${albumName}</span>`;
+    document.getElementById('main-title').innerHTML = `PWRS.PICS<br><span class="subtitle">${albumName.toUpperCase()}</span>`;
 
     historyStack.push("images-page");
     setTimeout(() => loadRealImages(albumName), 300);

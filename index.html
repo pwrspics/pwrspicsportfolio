@@ -9,200 +9,264 @@
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;700&display=swap" rel="stylesheet">
 
 <style>
-body {
-    margin: 0;
-    padding: 0;
-    font-family: "Montserrat", sans-serif;
-    background: linear-gradient(135deg, #0a1f44, #113b6b, #1f6f8b, #99d8d0);
-    background-size: 400% 400%;
-    animation: gradientShift 12s ease infinite;
-    color: white;
-    text-align: center;
-    min-height: 100vh;
-    overflow-x: hidden;
-}
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: "Montserrat", sans-serif;
+        background: linear-gradient(135deg, #0a1f44, #113b6b, #1f6f8b, #99d8d0);
+        background-size: 400% 400%;
+        animation: gradientShift 12s ease infinite;
+        color: white;
+        text-align: center;
+        min-height: 100vh;
+        overflow-x: hidden;
+        user-select: none;
+    }
 
-@keyframes gradientShift {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-}
+    @keyframes gradientShift {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+    }
 
-h1 {
-    font-size: 2rem;
-    margin: 25px 0 0 0;
-    font-weight: 700;
-    color: #d6f3ff;
-    text-shadow: 0 0 10px rgba(0,155,255,0.5);
-    letter-spacing: 1px;
-    line-height: 1.2em;
-}
+    h1 {
+        font-size: 2rem;
+        margin: 25px 0 0 0;
+        font-weight: 700;
+        color: #d6f3ff;
+        text-shadow: 0 0 10px rgba(0,155,255,0.5);
+        letter-spacing: 1px;
+        line-height: 1.2em;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
 
-.subtitle {
-    font-size: 1.8rem;
-}
+    .subtitle {
+        font-size: 1.8rem;
+        text-transform: uppercase;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
 
-.page-container {
-    width: 95%;
-    max-width: 430px;
-    margin: auto;
-    padding-top: 10px;
-}
+    .page-container {
+        width: 95%;
+        max-width: 430px;
+        margin: auto;
+        padding-top: 10px;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+    }
 
-.album-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 20px;
-    justify-content: center;
-    margin-top: 30px;
-}
+    .album-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 18px;
+        margin-top: 25px;
+        justify-items: center;
+    }
 
-.album {
-    background: rgba(255, 255, 255, 0.12);
-    border: 2px solid rgba(255,255,255,0.35);
-    border-radius: 14px;
-    padding: 20px;
-    backdrop-filter: blur(6px);
-    cursor: pointer;
-    transition: 0.25s ease;
-    height: 150px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 1.1rem;
-    font-weight: 500;
-    color: #d6f3ff;
-    text-shadow: 0 0 6px rgba(0,155,255,0.35);
-}
+    .album {
+        background: rgba(255, 255, 255, 0.12);
+        border: 2px solid rgba(255,255,255,0.35);
+        border-radius: 14px;
+        padding: 20px;
+        backdrop-filter: blur(6px);
+        cursor: pointer;
+        transition: 0.25s ease;
+        height: 150px;
+        width: 100%;
+        max-width: 200px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 1.1rem;
+        font-weight: 500;
+        color: #d6f3ff;
+        text-shadow: 0 0 6px rgba(0,155,255,0.35);
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
 
-.album:hover {
-    transform: scale(1.04);
-    background: rgba(255,255,255,0.22);
-}
+    .album:hover {
+        transform: scale(1.04);
+        background: rgba(255,255,255,0.22);
+    }
 
-.back-btn {
-    position: fixed;
-    top: 20px;
-    left: 20px;
-    background: rgba(255,255,255,0.25);
-    padding: 10px 14px;
-    border-radius: 50%;
-    border: 1px solid rgba(255,255,255,0.8);
-    font-size: 1.6rem;
-    cursor: pointer;
-    z-index: 9999;
-    display: none;
-    text-align: center;
-    line-height: 1;
-}
+    .back-btn {
+        position: fixed;
+        top: 20px;
+        left: 20px;
+        background: rgba(255,255,255,0.85);
+        padding: 12px 16px;
+        border-radius: 10px;
+        border: 1px solid rgba(255,255,255,0.9);
+        font-size: 1.3rem;
+        cursor: pointer;
+        z-index: 10000;
+        display: none;
+        color: #0a1f44;
+        font-weight: bold;
+        box-shadow: 0 0 15px rgba(255,255,255,0.6);
+        text-shadow: none;
+        transition: transform 0.2s ease;
+    }
 
-.image-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-    gap: 14px;
-    margin: 30px auto 0 auto;
-    justify-content: center;
-    max-width: 430px;
-}
+    .back-btn:hover {
+        transform: scale(1.06);
+    }
 
-.shimmer {
-    width: 100%;
-    aspect-ratio: 1/1;
-    border-radius: 8px;
-    border: 2px solid rgba(255,255,255,0.25);
-    background: linear-gradient(90deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.15) 50%, rgba(255,255,255,0.05) 100%);
-    background-size: 200% 100%;
-    animation: shimmerMove 1.2s infinite;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-weight: 500;
-    color: #d6f3ff;
-    text-shadow: 0 0 6px rgba(0,155,255,0.35);
-    cursor: pointer;
-    position: relative;
-    transition: transform 0.2s ease, background 0.2s ease;
-}
+    .image-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 12px;
+        margin-top: 25px;
+        justify-items: center;
+    }
 
-.shimmer:hover {
-    transform: scale(1.03);
-    background: rgba(255,255,255,0.18);
-}
+    .shimmer {
+        width: 100%;
+        aspect-ratio: 1/1;
+        border-radius: 8px;
+        border: 2px solid rgba(255,255,255,0.25);
+        background: linear-gradient(90deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.15) 50%, rgba(255,255,255,0.05) 100%);
+        background-size: 200% 100%;
+        animation: shimmerMove 1.2s infinite;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-weight: 500;
+        color: #d6f3ff;
+        text-shadow: 0 0 6px rgba(0,155,255,0.35);
+        cursor: pointer;
+        position: relative;
+    }
 
-@keyframes shimmerMove {
-    0% { background-position: -200% 0; }
-    100% { background-position: 200% 0; }
-}
+    @keyframes shimmerMove {
+        0% { background-position: -200% 0; }
+        100% { background-position: 200% 0; }
+    }
 
-.fade-in {
-    opacity: 0;
-    animation: fadeIn 0.6s forwards;
-}
+    .fade-in {
+        opacity: 0;
+        animation: fadeIn 0.6s forwards;
+    }
 
-@keyframes fadeIn {
-    to { opacity: 1; }
-}
+    @keyframes fadeIn {
+        to { opacity: 1; }
+    }
 
-.page { display: none; }
-#main-page { display: block; }
+    .page {
+        display: none;
+        opacity: 0;
+        transform: translateY(10px);
+        transition: opacity 0.35s ease, transform 0.35s ease;
+    }
 
-.photo-overlay {
-    display: none;
-    position: fixed;
-    top:0; left:0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0,0,0,0.7);
-    justify-content: center;
-    align-items: center;
-    z-index: 9999;
-}
+    .page.active {
+        display: block;
+        opacity: 1;
+        transform: translateY(0);
+    }
 
-.photo-message {
-    background: rgba(255,255,255,0.12);
-    border: 2px solid rgba(255,255,255,0.35);
-    border-radius: 12px;
-    width: 80%;
-    max-width: 400px;
-    padding: 20px;
-    text-align: center;
-    color: #d6f3ff;
-    font-weight: 600;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.5);
-}
+    .photo-overlay {
+        display: none;
+        position: fixed;
+        top:0; left:0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.7);
+        justify-content: center;
+        align-items: center;
+        z-index: 10001;
+        opacity: 0;
+        animation: fadeOverlay 0.3s forwards;
+    }
 
-.close-photo-btn {
-    margin-top: 15px;
-    padding: 8px 12px;
-    border: none;
-    background: rgba(255,255,255,0.25);
-    border-radius: 8px;
-    color: #d6f3ff;
-    cursor: pointer;
-    font-weight: 500;
-    font-size: 1.1rem;
-    transition: 0.2s;
-}
+    @keyframes fadeOverlay {
+        from {opacity: 0;}
+        to {opacity: 1;}
+    }
 
-.close-photo-btn:hover {
-    background: rgba(255,255,255,0.35);
-    transform: scale(1.03);
-}
+    .photo-message {
+        background: rgba(255,255,255,0.12);
+        border: 2px solid rgba(255,255,255,0.35);
+        border-radius: 12px;
+        width: 80%;
+        max-width: 400px;
+        padding: 20px;
+        text-align: center;
+        color: #d6f3ff;
+        font-weight: 600;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        transform: scale(0.8);
+        animation: zoomIn 0.3s forwards;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+    }
+
+    @keyframes zoomIn {
+        from { transform: scale(0.8); }
+        to { transform: scale(1); }
+    }
+
+    .close-photo-btn {
+        margin-top: 15px;
+        padding: 8px 12px;
+        border: none;
+        background: rgba(255,255,255,0.25);
+        border-radius: 8px;
+        color: #d6f3ff;
+        cursor: pointer;
+        font-weight: 500;
+        transition: 0.2s;
+    }
+
+    .close-photo-btn:hover {
+        background: rgba(255,255,255,0.35);
+        transform: scale(1.03);
+    }
+
+    .home-btn {
+        position: fixed;
+        top: 100px;
+        left: 20px;
+        padding: 10px 14px;
+        font-size: 1rem;
+        color: #0a1f44;
+        text-decoration: none;
+        background: rgba(255,255,255,0.7);
+        border: 2px solid rgba(255,255,255,0.9);
+        border-radius: 10px;
+        backdrop-filter: blur(6px);
+        text-shadow: 0 0 6px rgba(0,155,255,0.35);
+        transition: transform 0.2s ease, background 0.2s ease;
+        z-index: 10000;
+    }
+
+    .home-btn:hover {
+        background: rgba(255,255,255,0.85);
+        transform: scale(1.06);
+    }
 </style>
 </head>
 
 <body>
-<h1>PWRS.PICS<br><span class="subtitle">Portfolio</span></h1>
+<h1>PWRS.PICS<br><span class="subtitle">PORTFOLIO</span></h1>
 
 <div class="page-container">
 
     <!-- MAIN PAGE -->
-    <div class="page" id="main-page">
-        <button class="back-btn" onclick="window.location.href='YOUR_PAGE_LINK_HERE'">←</button>
+    <div class="page active" id="main-page">
+        <a href="YOUR_PAGE_LINK_HERE" class="home-btn">Back to Home Page</a>
         <div class="album-grid">
             <div class="album" onclick="openPage('sports-page')">Sports</div>
             <div class="album" onclick="openPage('outside-page')">Outside Scenery</div>
@@ -249,78 +313,83 @@ h1 {
 
 </div>
 
+<button class="back-btn" onclick="goBack()">✕</button>
+
+<!-- PHOTO OVERLAY -->
+<div class="photo-overlay" id="photo-overlay">
+    <div class="photo-message">
+        <div>Photo Unavailable</div>
+        <button class="close-photo-btn" onclick="closePhotoOverlay()">Close</button>
+    </div>
+</div>
+
 <script>
-let historyStack = [];
+    let historyStack = [];
 
-function openPage(id) {
-    document.querySelectorAll('.page').forEach(p => p.style.display = "none");
-    const page = document.getElementById(id);
-    page.style.display = "block";
-    document.querySelector('.back-btn').style.display = id === 'main-page' ? 'block' : 'none';
-    historyStack.push(id);
-}
-
-function openAlbum(albumName) {
-    buildShimmerGrid(albumName);
-    document.querySelectorAll('.page').forEach(p => p.style.display = "none");
-    document.getElementById("images-page").style.display = "block";
-    document.querySelector('.back-btn').style.display = "none";
-    historyStack.push("images-page");
-    setTimeout(() => loadRealImages(albumName), 500);
-}
-
-function buildShimmerGrid(albumName) {
-    const container = document.getElementById("image-grid");
-    container.innerHTML = "";
-    let count = albumName.startsWith("MustBook") ? 15 : 150;
-    for (let i = 0; i < count; i++) {
-        const shimmer = document.createElement("div");
-        shimmer.classList.add("shimmer");
-        shimmer.onclick = () => openPhotoOverlay();
-        container.appendChild(shimmer);
+    function openPage(id) {
+        document.querySelectorAll('.page').forEach(p => {
+            p.classList.remove('active');
+        });
+        const page = document.getElementById(id);
+        page.classList.add('active');
+        document.querySelector('.back-btn').style.display = id === 'main-page' ? 'none' : 'block';
+        document.querySelector('.home-btn').style.display = id === 'main-page' ? 'block' : 'none';
+        historyStack.push(id);
     }
-}
 
-function loadRealImages(albumName) {
-    const container = document.getElementById("image-grid");
-    container.innerHTML = "";
-    let count = albumName.startsWith("MustBook") ? 15 : 150;
-    for (let i = 0; i < count; i++) {
-        const img = document.createElement("div");
-        img.classList.add("shimmer", "fade-in");
-        img.style.background = "rgba(255,255,255,0.15)";
-        img.onclick = () => openPhotoOverlay();
-        container.appendChild(img);
+    function openAlbum(albumName) {
+        buildShimmerGrid(albumName);
+        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+        document.getElementById("images-page").classList.add('active');
+        document.querySelector('.back-btn').style.display = "block";
+        document.querySelector('.home-btn').style.display = "none";
+        historyStack.push("images-page");
+        setTimeout(() => loadRealImages(albumName), 500);
     }
-}
 
-function goBack() {
-    historyStack.pop();
-    let page = historyStack.pop() || "main-page";
-    openPage(page);
-}
+    function buildShimmerGrid(albumName) {
+        const container = document.getElementById("image-grid");
+        container.innerHTML = "";
+        let count = albumName.startsWith("MustBook") ? 15 : 150;
+        for (let i = 0; i < count; i++) {
+            const shimmer = document.createElement("div");
+            shimmer.classList.add("shimmer");
+            shimmer.onclick = () => openPhotoOverlay();
+            container.appendChild(shimmer);
+        }
+    }
 
-function openPhotoOverlay() {
-    const overlay = document.createElement('div');
-    overlay.className = 'photo-overlay';
-    overlay.style.display = 'flex';
+    function loadRealImages(albumName) {
+        const container = document.getElementById("image-grid");
+        container.innerHTML = "";
+        let count = albumName.startsWith("MustBook") ? 15 : 150;
+        for (let i = 1; i <= count; i++) {
+            const img = document.createElement("div");
+            img.classList.add("shimmer", "fade-in");
+            img.style.background = "rgba(255,255,255,0.15)";
+            img.onclick = () => openPhotoOverlay();
+            container.appendChild(img);
+        }
+    }
 
-    const messageBox = document.createElement('div');
-    messageBox.className = 'photo-message';
+    function goBack() {
+        historyStack.pop();
+        let page = historyStack.pop() || "main-page";
+        openPage(page);
+    }
 
-    const text = document.createElement('div');
-    text.innerText = 'Photo Unavailable';
+    function openPhotoOverlay() {
+        const overlay = document.getElementById("photo-overlay");
+        overlay.style.display = "flex";
+        document.body.style.overflow = 'hidden';
+        setTimeout(() => overlay.style.opacity = 1, 10);
+    }
 
-    const closeBtn = document.createElement('button');
-    closeBtn.className = 'close-photo-btn';
-    closeBtn.innerText = 'Close';
-    closeBtn.onclick = () => document.body.removeChild(overlay);
-
-    messageBox.appendChild(text);
-    messageBox.appendChild(closeBtn);
-    overlay.appendChild(messageBox);
-    document.body.appendChild(overlay);
-}
+    function closePhotoOverlay() {
+        const overlay = document.getElementById("photo-overlay");
+        overlay.style.display = "none";
+        document.body.style.overflow = '';
+    }
 </script>
 
 </body>

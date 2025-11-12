@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>PWRS.PICS PORTFOLIO</title>
 
-<!-- Fonts -->
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;700&display=swap" rel="stylesheet">
 
 <style>
@@ -30,7 +29,7 @@ body {
 
 h1 {
     font-size: 2rem;
-    margin: 25px 0 0 0;
+    margin: 25px 0 5px 0;
     font-weight: 700;
     color: #d6f3ff;
     text-shadow: 0 0 10px rgba(0,155,255,0.5);
@@ -47,7 +46,7 @@ h1 {
 .page-container {
     width: 95%;
     max-width: 430px;
-    margin: 80px auto 20px auto;
+    margin: 0 auto 20px auto;
     padding-top: 10px;
 }
 
@@ -56,7 +55,7 @@ h1 {
     grid-template-columns: repeat(2, 1fr);
     gap: 18px;
     justify-content: center;
-    margin-top: 25px;
+    margin-top: 10px;
 }
 
 .album {
@@ -66,7 +65,7 @@ h1 {
     padding: 20px;
     backdrop-filter: blur(6px);
     cursor: pointer;
-    transition: 0.25s ease;
+    transition: transform 0.25s ease, background 0.25s ease, box-shadow 0.25s ease;
     height: 150px;
     display: flex;
     justify-content: center;
@@ -75,6 +74,13 @@ h1 {
     font-weight: 500;
     color: #d6f3ff;
     text-shadow: 0 0 6px rgba(0,155,255,0.35);
+}
+
+/* Subtle hover effect for main albums */
+.page#main-page .album:hover {
+    transform: scale(1.05) translateY(-3px);
+    background: rgba(255,255,255,0.22);
+    box-shadow: 0 6px 20px rgba(0,155,255,0.25);
 }
 
 .album:hover {
@@ -86,21 +92,46 @@ h1 {
     position: fixed;
     top: 15px;
     left: 15px;
-    font-size: 1.8rem;
-    background: rgba(255,255,255,0.25);
-    border-radius: 50%;
-    padding: 10px 14px;
-    border: 1px solid rgba(255,255,255,0.8);
+    font-size: 1.2rem;
+    background: rgba(255,255,255,0.18);
+    border: 2px solid rgba(255,255,255,0.35);
+    border-radius: 6px;
+    padding: 8px 12px;
     cursor: pointer;
     z-index: 9999;
     display: block;
+    transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.back-btn:hover {
+    transform: scale(1.08);
+    background: rgba(255,255,255,0.28);
+}
+
+.x-btn {
+    position: fixed;
+    top: 15px;
+    left: 15px;
+    font-size: 1.8rem;
+    background: rgba(255,255,255,0.25);
+    border-radius: 50%;
+    padding: 8px 12px;
+    border: 1px solid rgba(255,255,255,0.8);
+    cursor: pointer;
+    z-index: 9999;
+    display: none;
+    transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.x-btn:hover {
+    transform: scale(1.1);
+    background: rgba(255,255,255,0.35);
 }
 
 .image-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
     gap: 12px;
-    margin-top: 25px;
     justify-content: center;
     max-width: 430px;
     margin-left:auto;
@@ -126,6 +157,7 @@ h1 {
     transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
 }
 
+/* New hover effect for image slots */
 .shimmer:hover {
     transform: scale(1.03);
     background: rgba(255,255,255,0.18);
@@ -146,8 +178,18 @@ h1 {
     to { opacity: 1; }
 }
 
-.page { display: none; }
-#main-page { display: block; }
+.page {
+    display: none;
+    opacity: 0;
+    transform: scale(0.98);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.page.active {
+    display: block;
+    opacity: 1;
+    transform: scale(1);
+}
 
 .photo-overlay {
     display: none;
@@ -207,13 +249,15 @@ h1 {
 <body>
 <h1>PWRS.PICS<br><span class="subtitle">Portfolio</span></h1>
 
-<!-- Back arrow button only on main page -->
+<!-- Main page back arrow -->
 <button class="back-btn" onclick="window.location.href='YOUR_PAGE_LINK_HERE'">←</button>
 
-<div class="page-container">
+<!-- X button for other pages -->
+<button class="x-btn" onclick="goBack()">✕</button>
 
+<div class="page-container">
     <!-- MAIN PAGE -->
-    <div class="page" id="main-page">
+    <div class="page active" id="main-page">
         <div class="album-grid">
             <div class="album" onclick="openPage('sports-page')">Sports</div>
             <div class="album" onclick="openPage('outside-page')">Outside Scenery</div>
@@ -257,25 +301,30 @@ h1 {
     <div class="page" id="images-page">
         <div id="image-grid" class="image-grid"></div>
     </div>
-
 </div>
 
 <script>
 let historyStack = [];
 
 function openPage(id) {
-    document.querySelectorAll('.page').forEach(p => p.style.display = "none");
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
     const page = document.getElementById(id);
-    page.style.display = "block";
+    page.classList.add('active');
+
     document.querySelector('.back-btn').style.display = id === 'main-page' ? 'block' : 'none';
+    document.querySelector('.x-btn').style.display = id === 'main-page' ? 'none' : 'block';
+
     historyStack.push(id);
 }
 
 function openAlbum(albumName) {
     buildShimmerGrid(albumName);
-    document.querySelectorAll('.page').forEach(p => p.style.display = "none");
-    document.getElementById("images-page").style.display = "block";
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.getElementById("images-page").classList.add('active');
+
     document.querySelector('.back-btn').style.display = "none";
+    document.querySelector('.x-btn').style.display = "block";
+
     historyStack.push("images-page");
     setTimeout(() => loadRealImages(albumName), 300);
 }

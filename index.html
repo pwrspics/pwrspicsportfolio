@@ -9,224 +9,226 @@
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;700&display=swap" rel="stylesheet">
 
 <style>
-body {
-    margin: 0;
-    padding: 0;
-    font-family: "Montserrat", sans-serif;
-    background: linear-gradient(135deg, #0a1f44, #113b6b, #1f6f8b, #99d8d0);
-    background-size: 400% 400%;
-    animation: gradientShift 12s ease infinite;
-    color: white;
-    text-align: center;
-    min-height: 100vh;
-    overflow-x: hidden;
-}
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: "Montserrat", sans-serif;
+        background: linear-gradient(135deg, #0a1f44, #113b6b, #1f6f8b, #99d8d0);
+        background-size: 400% 400%;
+        animation: gradientShift 12s ease infinite;
+        color: white;
+        text-align: center;
+        min-height: 100vh;
+        overflow-x: hidden;
+    }
 
-@keyframes gradientShift {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-}
+    @keyframes gradientShift {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+    }
 
-h1 {
-    font-size: 2rem;
-    margin-top: 25px;
-    font-weight: 700;
-    color: #d6f3ff;
-    text-shadow: 0 0 10px rgba(0,155,255,0.5);
-    letter-spacing: 1px;
-}
+    h1 {
+        font-size: 2rem;
+        margin: 25px 0 0 0;
+        font-weight: 700;
+        color: #d6f3ff;
+        text-shadow: 0 0 10px rgba(0,155,255,0.5);
+        letter-spacing: 1px;
+        line-height: 1.2em;
+    }
 
-.page-container {
-    width: 95%;
-    max-width: 430px;
-    margin: auto;
-    padding-top: 10px;
-}
+    .subtitle {
+        font-size: 1.8rem;
+    }
 
-.album-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 18px;
-    margin-top: 25px;
-}
+    .page-container {
+        width: 95%;
+        max-width: 430px;
+        margin: auto;
+        padding-top: 10px;
+    }
 
-.album {
-    background: rgba(255, 255, 255, 0.12);
-    border: 2px solid rgba(255,255,255,0.35);
-    border-radius: 14px;
-    padding: 20px;
-    backdrop-filter: blur(6px);
-    cursor: pointer;
-    transition: 0.25s ease;
-    height: 150px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 1.1rem;
-    font-weight: 500;
-    color: #d6f3ff;
-    text-shadow: 0 0 6px rgba(0,155,255,0.35);
-}
+    .album-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 18px;
+        margin-top: 25px;
+    }
 
-.album:hover {
-    transform: scale(1.04);
-    background: rgba(255,255,255,0.22);
-}
+    .album {
+        background: rgba(255, 255, 255, 0.12);
+        border: 2px solid rgba(255,255,255,0.35);
+        border-radius: 14px;
+        padding: 20px;
+        backdrop-filter: blur(6px);
+        cursor: pointer;
+        transition: 0.25s ease;
+        height: 150px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 1.1rem;
+        font-weight: 500;
+        color: #d6f3ff;
+        text-shadow: 0 0 6px rgba(0,155,255,0.35);
+    }
 
-.back-btn {
-    position: fixed;
-    top: 20px;
-    left: 20px;
-    background: rgba(255,255,255,0.25);
-    padding: 10px 14px;
-    border-radius: 10px;
-    border: 1px solid rgba(255,255,255,0.8);
-    font-size: 1.2rem;
-    cursor: pointer;
-    z-index: 9999;
-    display: none;
-}
+    .album:hover {
+        transform: scale(1.04);
+        background: rgba(255,255,255,0.22);
+    }
 
-.home-btn {
-    position: fixed;
-    top: 20px;
-    left: 20px;
-    padding: 10px 14px;
-    font-size: 1rem;
-    color: #d6f3ff;
-    text-decoration: none;
-    background: rgba(255,255,255,0.18);
-    border: 2px solid rgba(255,255,255,0.35);
-    border-radius: 10px;
-    backdrop-filter: blur(6px);
-    text-shadow: 0 0 6px rgba(0,155,255,0.35);
-    transition: 0.25s ease;
-    z-index: 9999;
-}
+    .back-btn {
+        position: fixed;
+        top: 20px;
+        left: 20px;
+        background: rgba(255,255,255,0.25);
+        padding: 10px 14px;
+        border-radius: 10px;
+        border: 1px solid rgba(255,255,255,0.8);
+        font-size: 1.2rem;
+        cursor: pointer;
+        z-index: 9999;
+        display: none;
+    }
 
-.home-btn:hover {
-    background: rgba(255,255,255,0.28);
-    transform: scale(1.04);
-}
+    .image-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 12px;
+        margin-top: 25px;
+    }
 
-.image-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 12px;
-    margin-top: 25px;
-}
+    .shimmer {
+        width: 100%;
+        aspect-ratio: 1/1;
+        border-radius: 8px;
+        border: 2px solid rgba(255,255,255,0.25);
+        background: linear-gradient(90deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.15) 50%, rgba(255,255,255,0.05) 100%);
+        background-size: 200% 100%;
+        animation: shimmerMove 1.2s infinite;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-weight: 500;
+        color: #d6f3ff;
+        text-shadow: 0 0 6px rgba(0,155,255,0.35);
+        cursor: pointer;
+        position: relative;
+    }
 
-.shimmer {
-    width: 100%;
-    aspect-ratio: 1/1;
-    border-radius: 8px;
-    background: linear-gradient(90deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.15) 50%, rgba(255,255,255,0.05) 100%);
-    background-size: 200% 100%;
-    animation: shimmerMove 1.2s infinite;
-    cursor: pointer;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transition: transform 0.2s ease;
-}
+    @keyframes shimmerMove {
+        0% { background-position: -200% 0; }
+        100% { background-position: 200% 0; }
+    }
 
-.shimmer:active {
-    transform: scale(1.05);
-}
+    .fade-in {
+        opacity: 0;
+        animation: fadeIn 0.6s forwards;
+    }
 
-@keyframes shimmerMove {
-    0% { background-position: -200% 0; }
-    100% { background-position: 200% 0; }
-}
+    @keyframes fadeIn {
+        to { opacity: 1; }
+    }
 
-.fade-in {
-    opacity: 0;
-    animation: fadeIn 0.6s forwards;
-}
+    .page { display: none; }
+    #main-page { display: block; }
 
-@keyframes fadeIn {
-    to { opacity: 1; }
-}
+    /* Photo overlay */
+    .photo-overlay {
+        display: none;
+        position: fixed;
+        top:0; left:0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.7);
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+        opacity: 0;
+        animation: fadeOverlay 0.3s forwards;
+    }
 
-.page { display: none; }
-#main-page { display: block; }
+    @keyframes fadeOverlay {
+        from {opacity: 0;}
+        to {opacity: 1;}
+    }
 
-/* Enlarged photo overlay */
-#enlarged-photo {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0,0,0,0.85);
-    justify-content: center;
-    align-items: center;
-    z-index: 10000;
-    color: white;
-    flex-direction: column;
-    text-align: center;
-    padding: 10px;
-    box-sizing: border-box;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-}
+    .photo-message {
+        background: rgba(255,255,255,0.12);
+        border: 2px solid rgba(255,255,255,0.35);
+        border-radius: 12px;
+        width: 80%;
+        max-width: 400px;
+        padding: 20px;
+        text-align: center;
+        color: #d6f3ff;
+        font-weight: 600;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        transform: scale(0.8);
+        animation: zoomIn 0.3s forwards;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+    }
 
-#enlarged-photo.show {
-    display: flex;
-    opacity: 1;
-}
+    @keyframes zoomIn {
+        from { transform: scale(0.8); }
+        to { transform: scale(1); }
+    }
 
-#enlarged-photo div {
-    background: rgba(255,255,255,0.12);
-    border-radius: 12px;
-    padding: 15px;
-    font-size: 1.2rem;
-    text-shadow: 0 0 6px rgba(0,155,255,0.35);
-    max-width: 70%;
-    word-wrap: break-word;
-}
+    .close-photo-btn {
+        margin-top: 15px;
+        padding: 8px 12px;
+        border: none;
+        background: rgba(255,255,255,0.25);
+        border-radius: 8px;
+        color: #d6f3ff;
+        cursor: pointer;
+        font-weight: 500;
+        transition: 0.2s;
+    }
 
-#enlarged-photo button {
-    margin-top: 20px;
-    padding: 10px 14px;
-    font-size: 1rem;
-    border-radius: 10px;
-    border: none;
-    cursor: pointer;
-    background: rgba(255,255,255,0.25);
-    color: #d6f3ff;
-    text-shadow: 0 0 6px rgba(0,155,255,0.35);
-}
+    .close-photo-btn:hover {
+        background: rgba(255,255,255,0.35);
+        transform: scale(1.03);
+    }
 
-#enlarged-photo button:hover {
-    background: rgba(255,255,255,0.35);
-}
+    /* Back to home page button */
+    .home-btn {
+        position: fixed;
+        top: 80px; /* pushed below title */
+        left: 20px;
+        padding: 10px 14px;
+        font-size: 1rem;
+        color: #d6f3ff;
+        text-decoration: none;
+        background: rgba(255,255,255,0.18);
+        border: 2px solid rgba(255,255,255,0.35);
+        border-radius: 10px;
+        backdrop-filter: blur(6px);
+        text-shadow: 0 0 6px rgba(0,155,255,0.35);
+        transition: 0.25s ease;
+        z-index: 9999;
+    }
 
-/* Responsive scaling */
-@media(max-width: 800px){
-    #enlarged-photo div { max-width: 85%; font-size: 1.1rem; }
-}
-@media(max-width: 500px){
-    h1 { font-size: 1.6rem; }
-    .album { font-size: 1rem; padding: 16px; height: 130px; }
-    .home-btn, .back-btn { font-size: 0.9rem; padding: 8px 12px; }
-    #enlarged-photo div { max-width: 90%; font-size: 1rem; }
-}
+    .home-btn:hover {
+        background: rgba(255,255,255,0.28);
+        transform: scale(1.04);
+    }
 </style>
 </head>
 
 <body>
-<h1>PWRS.PICS PORTFOLIO</h1>
-
-<!-- Back to Home Page Button -->
-<a href="YOUR_PAGE_LINK_HERE" class="home-btn">Back to Home Page</a>
+<h1>PWRS.PICS<br><span class="subtitle">Portfolio</span></h1>
 
 <div class="page-container">
 
     <!-- MAIN PAGE -->
     <div class="page" id="main-page">
+        <a href="YOUR_PAGE_LINK_HERE" class="home-btn">Back to Home Page</a>
         <div class="album-grid">
             <div class="album" onclick="openPage('sports-page')">Sports</div>
             <div class="album" onclick="openPage('outside-page')">Outside Scenery</div>
@@ -275,71 +277,82 @@ h1 {
 
 <button class="back-btn" onclick="goBack()">✕</button>
 
-<!-- Enlarged photo overlay -->
-<div id="enlarged-photo">
-    <div>Photo Unavailable</div>
-    <button onclick="closeEnlarged()">Close</button>
+<!-- PHOTO OVERLAY -->
+<div class="photo-overlay" id="photo-overlay">
+    <div class="photo-message">
+        <div>Photo Unavailable</div>
+        <button class="close-photo-btn" onclick="closePhotoOverlay()">Close</button>
+    </div>
 </div>
 
 <script>
-let historyStack = [];
+    let historyStack = [];
 
-function openPage(id) {
-    document.querySelectorAll('.page').forEach(p => p.style.display = "none");
-    document.getElementById(id).style.display = "block";
-    document.querySelector('.back-btn').style.display = id === 'main-page' ? 'none' : 'block';
-    historyStack.push(id);
-}
-
-function openAlbum(albumName) {
-    buildShimmerGrid(albumName);
-    document.querySelectorAll('.page').forEach(p => p.style.display = "none");
-    document.getElementById("images-page").style.display = "block";
-    document.querySelector('.back-btn').style.display = "block";
-    historyStack.push("images-page");
-
-    setTimeout(() => loadRealImages(albumName), 500);
-}
-
-function buildShimmerGrid(albumName) {
-    const container = document.getElementById("image-grid");
-    container.innerHTML = "";
-    let count = albumName.startsWith("MustBook") ? 15 : 150;
-    for (let i = 0; i < count; i++) {
-        const shimmer = document.createElement("div");
-        shimmer.classList.add("shimmer", "fade-in");
-        shimmer.onclick = () => showEnlarged(shimmer);
-        container.appendChild(shimmer);
+    function openPage(id) {
+        document.querySelectorAll('.page').forEach(p => p.style.display = "none");
+        const page = document.getElementById(id);
+        page.style.display = "block";
+        document.querySelector('.back-btn').style.display = id === 'main-page' ? 'none' : 'block';
+        document.querySelector('.home-btn').style.display = id === 'main-page' ? 'block' : 'none';
+        historyStack.push(id);
     }
-}
 
-function loadRealImages(albumName) {
-    const container = document.getElementById("image-grid");
-    container.innerHTML = "";
-    let count = albumName.startsWith("MustBook") ? 15 : 150;
-    for (let i = 0; i < count; i++) {
-        const slot = document.createElement("div");
-        slot.classList.add("shimmer", "fade-in");
-        slot.onclick = () => showEnlarged(slot);
-        container.appendChild(slot);
+    function openAlbum(albumName) {
+        buildShimmerGrid(albumName);
+        document.querySelectorAll('.page').forEach(p => p.style.display = "none");
+        document.getElementById("images-page").style.display = "block";
+        document.querySelector('.back-btn').style.display = "block";
+        document.querySelector('.home-btn').style.display = "none";
+        historyStack.push("images-page");
+        setTimeout(() => loadRealImages(albumName), 500);
     }
-}
 
-function goBack() {
-    historyStack.pop();
-    let page = historyStack.pop() || "main-page";
-    openPage(page);
-}
+    function buildShimmerGrid(albumName) {
+        const container = document.getElementById("image-grid");
+        container.innerHTML = "";
+        let count = albumName.startsWith("MustBook") ? 15 : 150;
+        for (let i = 0; i < count; i++) {
+            const shimmer = document.createElement("div");
+            shimmer.classList.add("shimmer");
+            shimmer.onclick = () => openPhotoOverlay();
+            container.appendChild(shimmer);
+        }
+    }
 
-function showEnlarged(slot) {
-    const overlay = document.getElementById("enlarged-photo");
-    overlay.classList.add("show");
-}
+    function loadRealImages(albumName) {
+        const container = document.getElementById("image-grid");
+        container.innerHTML = "";
+        let count = albumName.startsWith("MustBook") ? 15 : 150;
+        for (let i = 1; i <= count; i++) {
+            const img = document.createElement("div");
+            img.classList.add("shimmer", "fade-in");
+            img.style.background = "rgba(255,255,255,0.15)";
+            img.onclick = () => openPhotoOverlay();
+            container.appendChild(img);
+        }
+    }
 
-function closeEnlarged() {
-    const overlay = document.getElementById("enlarged-photo");
-    overlay.classList.remove("show");
-}
+    function goBack() {
+        historyStack.pop();
+        let page = historyStack.pop() || "main-page";
+        openPage(page);
+    }
+
+    function openPhotoOverlay() {
+        const overlay = document.getElementById("photo-overlay");
+        overlay.style.display = "flex";
+        overlay.style.opacity = 0;
+        overlay.querySelector('.photo-message').style.transform = 'scale(0.8)';
+        setTimeout(() => {
+            overlay.style.opacity = 1;
+            overlay.querySelector('.photo-message').style.transform = 'scale(1)';
+        }, 10);
+    }
+
+    function closePhotoOverlay() {
+        const overlay = document.getElementById("photo-overlay");
+        overlay.style.display = "none";
+    }
 </script>
 
 </body>

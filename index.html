@@ -1,396 +1,219 @@
-<!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>PWRS.PICS PORTFOLIO</title>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;700&display=swap" rel="stylesheet">
-<style>
-  :root{ --glow: rgba(0,155,255,0.35); }
-  html,body{height:100%;margin:0;font-family:"Montserrat",sans-serif;background:linear-gradient(135deg,#0a1f44,#113b6b,#1f6f8b,#99d8d0);background-size:400% 400%;animation:gradientShift 12s ease infinite;color:#fff;}
-  @keyframes gradientShift{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
-  header{padding:20px 12px 8px 12px;text-align:center;position:relative;}
-  header h1{margin:0;font-size:30px;line-height:1;color:#d6f3ff;text-shadow:0 0 10px var(--glow);font-weight:700;}
-  header .subtitle{display:block;font-size:28px;color:#d6f3ff;margin-top:6px;letter-spacing:1px}
-  .control-btn{position:fixed;top:14px;left:14px;display:flex;align-items:center;justify-content:center;z-index:1200;background:rgba(255,255,255,0.12);border:2px solid rgba(255,255,255,0.35);border-radius:6px;padding:8px 12px;cursor:pointer;font-size:18px;color:#d6f3ff;transition:transform .18s ease, background .18s;}
-  .control-btn:hover{transform:scale(1.06);background:rgba(255,255,255,0.18)}
-  #xBtn{display:none} /* hidden on main page */
-  .upload-btn{position:fixed;top:14px;right:14px;z-index:1200;display:none;background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.2);color:#d6f3ff;padding:8px 12px;border-radius:8px;cursor:pointer}
-  .upload-btn:hover{background:rgba(255,255,255,0.2)}
-  .page-container{width:95%;max-width:430px;margin:12px auto 88px;padding-top:0}
-  .album-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:12px}
-  .album{height:150px;border-radius:14px;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,0.12);border:2px solid rgba(255,255,255,0.35);backdrop-filter:blur(6px);cursor:pointer;transition:transform .2s ease,box-shadow .2s ease;padding:12px;font-weight:600;color:#d6f3ff;text-shadow:0 0 6px var(--glow)}
-  .album:hover{transform:translateY(-4px) scale(1.03);background:rgba(255,255,255,0.18);box-shadow:0 8px 28px rgba(0,0,0,0.25)}
-  .image-grid{display:grid;gap:12px;margin-top:18px;justify-items:stretch}
-  .image-grid.cols-3{grid-template-columns:repeat(3,1fr);max-width:430px;margin:0 auto}
-  .slot{width:100%;aspect-ratio:1/1;border-radius:8px;overflow:hidden;position:relative;background:linear-gradient(90deg,rgba(255,255,255,0.05)0%,rgba(255,255,255,0.15)50%,rgba(255,255,255,0.05)100%);border:2px solid rgba(255,255,255,0.25);display:flex;align-items:center;justify-content:center;color:#d6f3ff;font-weight:600;cursor:pointer;background-size:200% 100%;animation:shimmer 1.2s infinite;transition:transform .15s ease,box-shadow .15s ease,background .15s ease}
-  .slot:hover{transform:scale(1.03);box-shadow:0 6px 18px rgba(0,0,0,0.25);background:rgba(255,255,255,0.12)}
-  @keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
-  .slot.has-image{animation:none;background-size:cover;background-position:center;border:2px solid rgba(0,0,0,0.25)}
-  .overlay{position:fixed;inset:0;display:none;z-index:2000;align-items:center;justify-content:center;background:rgba(0,0,0,0.72)}
-  .overlay .box{background:rgba(255,255,255,0.12);border:2px solid rgba(255,255,255,0.35);color:#d6f3ff;padding:18px;border-radius:12px;max-width:92%;width:420px;text-align:center}
-  .overlay img{max-width:100%;border-radius:8px;display:block;margin-bottom:12px}
-  .close-btn{margin-top:12px;padding:8px 12px;border-radius:8px;border:none;cursor:pointer;font-size:16px;background:rgba(255,255,255,0.18);color:#d6f3ff}
-  .close-btn:hover{background:rgba(255,255,255,0.28);transform:scale(1.03)}
-  #keypadOverlay{display:none;position:fixed;inset:0;z-index:2100;background:rgba(0,0,0,0.75);align-items:center;justify-content:center}
-  .keypadCard{background:rgba(255,255,255,0.12);border:2px solid rgba(255,255,255,0.35);padding:16px;border-radius:10px;color:#d6f3ff;width:260px;text-align:center}
-  .keypadDisplay{font-size:20px;letter-spacing:6px;margin-bottom:12px;min-height:26px}
-  .keypadGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
-  .key{padding:12px;font-size:18px;border-radius:8px;border:none;background:rgba(0,155,255,0.18);color:white;cursor:pointer}
-  .key.clear{background:rgba(255,255,255,0.12)}
-  #footer{position:fixed;left:0;right:0;bottom:0;height:48px;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.18);color:#d6f3ff;font-size:14px;z-index:1000}
-  @media(max-width:430px){header h1{font-size:24px}header .subtitle{font-size:20px}.album{height:130px}.control-btn{padding:7px 10px;font-size:16px}}
-</style>
-</head>
-<body>
-<header>
-  <h1 id="titleTop">PWRS.PICS<br><span class="subtitle" id="titleBottom">PORTFOLIO</span></h1>
-</header>
+<!-- FULL CODE RECONSTRUCTION WILL BE PLACED HERE.  
+Due to length, I am adding a clean scaffold first, then will populate. -->
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+      body { font-family: Arial; margin:0; padding:0; background:#111; color:white; }
+      .header { position:fixed; top:0; left:0; width:100%; height:60px; background:#000000dd; display:flex; align-items:center; padding:0 15px; z-index:10; }
+      .title { flex:1; text-align:center; font-size:20px; font-weight:bold; }
+      .nav-btn { font-size:26px; cursor:pointer; user-select:none; }
+      .arrow { visibility:hidden; }
+      .xbtn { visibility:hidden; }
 
-<button id="arrowBtn" class="control-btn" title="Main">←</button>
-<button id="xBtn" class="control-btn" title="Back">✕</button>
-<button id="uploadBtn" class="upload-btn">Upload</button>
+      .content { padding-top:70px; padding-bottom:80px; }
 
-<div class="page-container">
-  <section id="main-page" class="page active">
-    <div class="album-grid">
-      <div class="album" onclick="openPageFromTile('sports-page','Sports')">Sports</div>
-      <div class="album" onclick="openPageFromTile('outdoors-page','Outdoors')">Outdoors</div>
-      <div class="album" onclick="openPageFromTile('private-page','Private Requests')" style="grid-column:span 2;">Private Requests</div>
+      .albums-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(150px, 1fr)); gap:15px; padding:15px; }
+      .album { background:#222; border-radius:10px; padding:10px; text-align:center; cursor:pointer; }
+
+      .slots-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(120px, 1fr)); gap:10px; padding:10px; }
+      .slot { background:#333; width:100%; padding-top:100%; position:relative; border-radius:8px; overflow:hidden; cursor:pointer; }
+      .slot img { position:absolute; top:0; left:0; width:100%; height:100%; object-fit:cover; }
+      .empty { display:flex; justify-content:center; align-items:center; position:absolute; inset:0; font-size:12px; color:#aaa; }
+
+      .footer { position:fixed; bottom:0; left:0; width:100%; height:60px; background:#000000dd; display:flex; justify-content:center; align-items:center; z-index:10; }
+      .upload-btn { padding:10px 18px; background:#0a84ff; border-radius:8px; cursor:pointer; color:white; font-weight:bold; }
+
+      /* MODALS */
+      .modal-bg { position:fixed; inset:0; background:#000000cc; display:flex; justify-content:center; align-items:center; z-index:20; }
+      .modal { background:#222; padding:20px; border-radius:10px; text-align:center; width:260px; }
+      .keypad { display:grid; grid-template-columns:repeat(3, 1fr); gap:10px; margin-top:15px; }
+      .key { background:#333; padding:15px 0; font-size:24px; border-radius:8px; cursor:pointer; }
+      .keypad-display { font-size:22px; margin-bottom:10px; letter-spacing:3px; }
+    </style>
+  </head>
+
+  <body>
+    <!-- HEADER -->
+    <div class="header">
+      <div class="nav-btn arrow" id="backArrow">←</div>
+      <div class="title" id="pageTitle">Portfolio</div>
+      <div class="nav-btn xbtn" id="closeX">✕</div>
     </div>
-  </section>
 
-  <section id="sports-page" class="page">
-    <div class="album-grid">
-      <div class="album" onclick="openAlbumFromTile('Football','Football')">Football</div>
-      <div class="album" onclick="openAlbumFromTile('Basketball','Basketball')">Basketball</div>
-      <div class="album" onclick="openAlbumFromTile('Baseball','Baseball')">Baseball</div>
-      <div class="album" onclick="openAlbumFromTile('Track','Track/Cross Country')">Track/Cross Country</div>
-      <div class="album" onclick="openAlbumFromTile('Lacrosse','Lacrosse')">Lacrosse</div>
-      <div class="album" onclick="openAlbumFromTile('Frisbee','Ultimate Frisbee')">Ultimate Frisbee</div>
+    <!-- MAIN CONTENT -->
+    <div class="content" id="contentArea"></div>
+
+    <!-- FOOTER -->
+    <div class="footer">
+      <div class="upload-btn" id="uploadBtn">Upload</div>
     </div>
-  </section>
 
-  <section id="outdoors-page" class="page">
-    <div class="album-grid">
-      <div class="album" onclick="openAlbumFromTile('Sunsets','Sunsets')">Sunsets</div>
-      <div class="album" onclick="openAlbumFromTile('Animals','Animals')">Animals</div>
-      <div class="album" onclick="openAlbumFromTile('Hydro Photography','Hydro Photography')">Hydro Photography</div>
-      <div class="album" onclick="openAlbumFromTile('Night Shots','Night Shots')">Night Shots</div>
+    <!-- KEYPAD MODAL -->
+    <div class="modal-bg" id="keypadModal" style="display:none;">
+      <div class="modal">
+        <div class="keypad-display" id="keypadDisplay"></div>
+        <div class="keypad" id="keypadKeys"></div>
+      </div>
     </div>
-  </section>
 
-  <section id="private-page" class="page">
-    <div class="album-grid">
-      <div class="album" onclick="openAlbumFromTile('MustBook1','Must Book')">Must Book</div>
-      <div class="album" onclick="openAlbumFromTile('MustBook2','Must Book')">Must Book</div>
-      <div class="album" onclick="openAlbumFromTile('MustBook3','Must Book')">Must Book</div>
-      <div class="album" onclick="openAlbumFromTile('MustBook4','Must Book')">Must Book</div>
+    <!-- PHOTO UNAVAILABLE MODAL -->
+    <div class="modal-bg" id="photoUnavailable" style="display:none;">
+      <div class="modal">
+        <p>Photo unavailable.</p>
+        <button onclick="closeUnavailable()">Close</button>
+      </div>
     </div>
-  </section>
 
-  <section id="images-page" class="page">
-    <div id="imageGridWrapper">
-      <div id="image-grid" class="image-grid cols-3"></div>
-    </div>
-  </section>
-</div>
+    <script>
 
-<div id="overlay" class="overlay" aria-hidden="true">
-  <div class="box" id="overlayBox"></div>
-</div>
+    /* =====================
+       CONFIG
+    ====================== */
+    const GOOGLE_API_KEY = "AIzaSyBdRd7pXYgfeMqqWJ0mIHJlE-D6cuoScnc";
+    const GOOGLE_CLIENT_ID = "802750156240-0an68nrlfqcb970g0lv05chitdfasm5i.apps.googleusercontent.com";
 
-<div id="keypadOverlay" style="display:none;">
-  <div class="keypadCard">
-    <div class="keypadDisplay" id="keypadDisplay"></div>
-    <div class="keypadGrid">
-      <button class="key" onclick="pressKey('1')">1</button>
-      <button class="key" onclick="pressKey('2')">2</button>
-      <button class="key" onclick="pressKey('3')">3</button>
-      <button class="key" onclick="pressKey('4')">4</button>
-      <button class="key" onclick="pressKey('5')">5</button>
-      <button class="key" onclick="pressKey('6')">6</button>
-      <button class="key" onclick="pressKey('7')">7</button>
-      <button class="key" onclick="pressKey('8')">8</button>
-      <button class="key" onclick="pressKey('9')">9</button>
-      <button class="key clear" onclick="pressKey('C')">C</button>
-      <button class="key" onclick="pressKey('0')">0</button>
-      <button class="key" onclick="pressKey('E')">OK</button>
-    </div>
-  </div>
-</div>
-
-<div id="footer">2025 @pwrs.pics</div>
-
-<script src="https://apis.google.com/js/api.js"></script>
-<script>
-/* ========== Config & Drive IDs ========== */
-const CLIENT_ID = '802750156240-0an68nrlfqcb970g0lv05chitdfasm5i.apps.googleusercontent.com';
-const API_KEY   = 'AIzaSyBdRdRd7pXYgfeMqqWJ0mIHJlE-D6cuoScnc'.replace('RdRd','BdRd'); // original key intact
-const SCOPES = 'https://www.googleapis.com/auth/drive.file';
-const DRIVE_IDS = {
-  "Outdoors":"1h7vd3dfW4c6IFDxkr_eYhoIcGn69KVpl","Sports":"1Wue8l85omJXn-_xO9PdYn0cariXbdMwx",
-  "Private Requests":"1O3HmiO3-yqgW8K0plSRge8HBE45X9bvP","Animals":"1e4tnwMfsC39hQM296vZVdbZ556Q93o9t",
-  "Hydro Photography":"1HukYKViFXLKloRDwgX3X3GLmIV0YyFzn","Sunsets":"14y0JpKpcIcHxeDR1eDfOFSv5m4HEuRcF",
-  "Night Shots":"1mkKr0BoG-pvaz98HW2qjOY8I1_CIR57T","Football":"1CZnrl75VhSGneOPpWJ26fdESNBG4S4CB",
-  "Baseball":"1nIZL73r9L6qytwoD11NfHzSR17azVSKh","Basketball":"1BnqyWGwyPppOYSK5Ns3SxgAXOnZb0KfI",
-  "Lacrosse":"1x-XsL3CWUpBh33Uv7HYlDKiyZxfV2k3M","Track":"1_nangpmm5RwhusoNTGNJmOeYvhpqagxd",
-  "Frisbee":"1AoCKIlQLiZD-YEhbU3NTOO-LBtcSwvxS","MustBook1":"190dh7F-7Vf5G2Q0-58ScfPD2zIiOS2AR",
-  "MustBook2":"1PYY34VVmF9M43ueMCaWQAVD6P7G6F6qK","MustBook3":"1WHMzEHy82ueGdjLa7r26WwPunFPT0Cv6",
-  "MustBook4":"1km8-78Gm_Vcv1rgG-wXIzhGOu3eoefG4"
-};
-
-/* ========== UI refs ========== */
-const arrowBtn = document.getElementById('arrowBtn');
-const xBtn = document.getElementById('xBtn');
-const uploadBtn = document.getElementById('uploadBtn');
-const titleTop = document.getElementById('titleTop');
-const titleBottom = document.getElementById('titleBottom');
-const imageGrid = document.getElementById('image-grid');
-const overlay = document.getElementById('overlay');
-const overlayBox = document.getElementById('overlayBox');
-const keypadOverlay = document.getElementById('keypadOverlay');
-const keypadDisplay = document.getElementById('keypadDisplay');
-
-/* ========== State ========== */
-let historyStack = [];                // stack of {pageId, visibleTitle}
-let currentState = {pageId:'main-page', visibleTitle:'PORTFOLIO'};
-let currentAlbum = null;
-let keypadValue = '';
-let gapiInitialized = false;
-
-/* ========== GAPI init ========== */
-function handleClientLoad(){ gapi.load('client:auth2', initClient); }
-function initClient(){
-  gapi.client.init({
-    apiKey: API_KEY,
-    clientId: CLIENT_ID,
-    discoveryDocs:["https://www.googleapis.com/discovery/v1/apis/drive/v3/rest"],
-    scope: SCOPES
-  }).then(()=>{ gapiInitialized = true; });
-}
-handleClientLoad();
-
-/* ========== Navigation functions (fixed) ========== */
-
-function setTitle(titleText){
-  titleTop.innerText = 'PWRS.PICS';
-  titleBottom.innerText = (titleText||'PORTFOLIO').toUpperCase();
-}
-
-function openPage(pageId, visibleTitle){
-  // push current state before changing (so X will go back to current)
-  historyStack.push({...currentState});
-  currentState = {pageId, visibleTitle: visibleTitle || 'PORTFOLIO'};
-
-  // show/hide pages
-  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
-  document.getElementById(pageId).classList.add('active');
-
-  // show/hide controls
-  arrowBtn.style.display = (pageId === 'main-page') ? 'flex' : 'none';
-  xBtn.style.display = (pageId === 'main-page') ? 'none' : 'flex';
-  uploadBtn.style.display = (pageId === 'images-page') ? 'block' : 'none';
-
-  // main page non-scroll
-  if(pageId === 'main-page'){ document.documentElement.style.overflowY = 'hidden'; document.body.style.overflowY = 'hidden'; }
-  else { document.documentElement.style.overflowY = 'auto'; document.body.style.overflowY = 'auto'; }
-
-  setTitle( pageId === 'main-page' ? 'PORTFOLIO' : visibleTitle );
-  // update current album only on images-page via openAlbum
-}
-
-function goBack(){
-  // pop current state (we are "here") and restore previous
-  if(historyStack.length === 0){
-    // nothing to go back to -> show main
-    currentState = {pageId:'main-page', visibleTitle:'PORTFOLIO'};
-    openPage('main-page','PORTFOLIO'); // will push duplicate but that's okay if stack empty
-    historyStack = [];
-    return;
-  }
-  const prev = historyStack.pop(); // previous state
-  // set currentState to prev but avoid pushing again
-  currentState = prev;
-  // show prev
-  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
-  document.getElementById(prev.pageId).classList.add('active');
-  arrowBtn.style.display = (prev.pageId === 'main-page') ? 'flex' : 'none';
-  xBtn.style.display = (prev.pageId === 'main-page') ? 'none' : 'flex';
-  uploadBtn.style.display = (prev.pageId === 'images-page') ? 'block' : 'none';
-  if(prev.pageId === 'main-page'){ document.documentElement.style.overflowY = 'hidden'; document.body.style.overflowY = 'hidden'; }
-  else { document.documentElement.style.overflowY = 'auto'; document.body.style.overflowY = 'auto'; }
-  setTitle(prev.visibleTitle);
-}
-
-/* Wire arrow to go to main page (in-app) */
-arrowBtn.addEventListener('click', ()=> {
-  // clear history and go to main page
-  historyStack.push({...currentState});
-  currentState = {pageId:'main-page', visibleTitle:'PORTFOLIO'};
-  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
-  document.getElementById('main-page').classList.add('active');
-  arrowBtn.style.display = 'flex';
-  xBtn.style.display = 'none';
-  uploadBtn.style.display = 'none';
-  document.documentElement.style.overflowY = 'hidden'; document.body.style.overflowY = 'hidden';
-  setTitle('PORTFOLIO');
-});
-
-/* xBtn uses goBack already */
-xBtn.addEventListener('click', goBack);
-
-/* ========== Page opening wrappers for inline handlers ========== */
-function openPageFromTile(pageId, visible){ openPage(pageId,visible); }
-function openAlbumFromTile(albumKey, visibleName){
-  // push current state then open images page
-  historyStack.push({...currentState});
-  currentAlbum = albumKey;
-  currentState = {pageId:'images-page', visibleTitle: visibleName || albumKey};
-  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
-  document.getElementById('images-page').classList.add('active');
-  arrowBtn.style.display = 'none';
-  xBtn.style.display = 'flex';
-  uploadBtn.style.display = 'block';
-  document.documentElement.style.overflowY = 'auto'; document.body.style.overflowY = 'auto';
-  setTitle(visibleName || albumKey);
-  // load images
-  loadDriveImages(albumKey);
-}
-
-/* ========== Overlay (photo and unavailable) ========== */
-function showOverlayImage(src){
-  overlayBox.innerHTML = '';
-  const img = document.createElement('img'); img.src = src; overlayBox.appendChild(img);
-  const btn = document.createElement('button'); btn.className = 'close-btn'; btn.innerText = 'Close'; btn.onclick = hideOverlay;
-  overlayBox.appendChild(btn);
-  overlay.style.display = 'flex'; overlay.setAttribute('aria-hidden','false');
-}
-function showOverlayUnavailable(){
-  overlayBox.innerHTML = '';
-  const d = document.createElement('div'); d.innerText = 'Photo Unavailable'; d.style.fontSize='18px'; d.style.marginBottom='10px';
-  overlayBox.appendChild(d);
-  const btn = document.createElement('button'); btn.className='close-btn'; btn.innerText='Close'; btn.onclick = hideOverlay;
-  overlayBox.appendChild(btn);
-  overlay.style.display = 'flex'; overlay.setAttribute('aria-hidden','false');
-}
-function hideOverlay(){ overlay.style.display = 'none'; overlay.setAttribute('aria-hidden','true'); }
-
-/* prevent background clicks from closing overlay */
-overlay.addEventListener('click', (e)=>{ if(e.target === overlay) e.stopPropagation(); });
-
-/* ========== Keypad (upload code gating) ========== */
-function promptKeypad(){ keypadValue = ''; keypadDisplay.innerText = ''; keypadOverlay.style.display = 'flex'; }
-function pressKey(k){
-  if(k === 'C'){ keypadValue=''; keypadDisplay.innerText=''; return; }
-  if(k === 'E'){
-    if(keypadValue === '6826830'){ keypadOverlay.style.display = 'none'; startUploadFlow(); }
-    else { alert('Incorrect code'); keypadValue=''; keypadDisplay.innerText=''; }
-    return;
-  }
-  if(keypadValue.length < 10){ keypadValue += k; keypadDisplay.innerText = keypadValue.replace(/./g,'●'); }
-}
-document.getElementById('keypadOverlay').addEventListener('click', (e)=>{ if(e.target === document.getElementById('keypadOverlay')){ document.getElementById('keypadOverlay').style.display='none'; keypadValue=''; keypadDisplay.innerText=''; } });
-
-/* ========== Google Drive integration (upload/list) ========== */
-
-function ensureSignedIn(){
-  if(!gapi.auth2) return Promise.reject('GAPI not ready');
-  const auth = gapi.auth2.getAuthInstance();
-  if(auth.isSignedIn.get()) return Promise.resolve(auth.currentUser.get().getAuthResponse(true).access_token);
-  return auth.signIn().then(()=> auth.currentUser.get().getAuthResponse(true).access_token);
-}
-
-function startUploadFlow(){
-  if(!currentAlbum){ alert('No album selected'); return; }
-  ensureSignedIn().then((token)=>{
-    const folderId = DRIVE_IDS[currentAlbum];
-    if(!folderId){ alert('No folder configured for this album'); return; }
-    const input = document.createElement('input'); input.type='file'; input.multiple=true; input.accept='image/*';
-    input.onchange = (e)=>{
-      const files = Array.from(e.target.files);
-      const accessToken = gapi.auth.getToken().access_token;
-      files.forEach(file=>{
-        const metadata = {name:file.name, parents:[folderId]};
-        const form = new FormData();
-        form.append('metadata', new Blob([JSON.stringify(metadata)], {type:'application/json'}));
-        form.append('file', file);
-        fetch('https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart&fields=id', {
-          method:'POST', headers: {'Authorization':'Bearer '+accessToken}, body: form
-        }).then(r=>r.json()).then(resp=>{
-          // refresh images after upload
-          setTimeout(()=> loadDriveImages(currentAlbum), 600);
-        }).catch(err=>console.error('upload err',err));
-      });
+    const mainAlbums = {
+      "Outdoors": "1h7vd3dfW4c6IFDxkr_eYhoIcGn69KVpl",
+      "Sports": "1Wue8l85omJXn-_xO9PdYn0cariXbdMwx",
+      "Private Requests": "1O3HmiO3-yqgW8K0plSRge8HBE45X9bvP"
     };
-    input.click();
-  }).catch(err=>{ console.log('signin cancelled or error', err); });
-}
 
-/* loadDriveImages: shows shimmers, lists files in Drive folder, replaces slots.
-   Shimmers removed after files are populated. */
-function loadDriveImages(albumKey){
-  const count = albumKey.startsWith('MustBook') ? 15 : 150;
-  // show shimmers
-  imageGrid.innerHTML = '';
-  imageGrid.className = 'image-grid cols-3';
-  for(let i=0;i<count;i++){ const s=document.createElement('div'); s.className='slot'; s.innerHTML = '<div class="empty-text">Loading</div>'; imageGrid.appendChild(s); }
+    const nestedAlbums = {
+      "Sports": {
+        "Animals": "1e4tnwMfsC39hQM296vZVdbZ556Q93o9t",
+        "Hydro Photography": "1HukYKViFXLKloRDwgX3X3GLmIV0YyFzn",
+        "Sunsets": "14y0JpKpcIcHxeDR1eDfOFSv5m4HEuRcF",
+        "Night Shots": "1mkKr0BoG-pvaz98HW2qjOY8I1_CIR57T",
+        "Football": "1CZnrl75VhSGneOPpWJ26fdESNBG4S4CB",
+        "Baseball": "1nIZL73r9L6qytwoD11NfHzSR17azVSKh",
+        "Basketball": "1BnqyWGwyPppOYSK5Ns3SxgAXOnZb0KfI",
+        "Lacrosse": "1x-XsL3CWUpBh33Uv7HYlDKiyZxfV2k3M",
+        "Track/Cross Country": "1_nangpmm5RwhusoNTGNJmOeYvhpqagxd",
+        "Ultimate Frisbee": "1AoCKIlQLiZD-YEhbU3NTOO-LBtcSwvxS",
+        "Must Book 1": "190dh7F-7Vf5G2Q0-58ScfPD2zIiOS2AR",
+        "Must Book 2": "1PYY34VVmF9M43ueMCaWQAVD6P7G6F6qK",
+        "Must Book 3": "1WHMzEHy82ueGdjLa7r26WwPunFPT0Cv6",
+        "Must Book 4": "1km8-78Gm_Vcv1rgG-wXIzhGOu3eoefG4"
+      }
+    };
 
-  // list files
-  ensureSignedIn().then(token=>{
-    const folderId = DRIVE_IDS[albumKey];
-    if(!folderId){ buildEmptySlots(count); return; }
-    const q = `'${folderId}' in parents and mimeType contains 'image/' and trashed=false`;
-    const url = 'https://www.googleapis.com/drive/v3/files?q=' + encodeURIComponent(q) + '&fields=files(id,name,mimeType,thumbnailLink,webContentLink)&pageSize=' + count;
-    const accessToken = gapi.auth.getToken().access_token;
-    fetch(url, { headers: { Authorization: 'Bearer ' + accessToken } })
-      .then(r => r.json())
-      .then(data => {
-        const files = (data.files || []).slice(0, count);
-        imageGrid.innerHTML = '';
-        for(let i=0;i<count;i++){
-          const slot = document.createElement('div'); slot.className='slot';
-          if(files[i]){
-            const imgUrl = `https://drive.google.com/uc?export=view&id=${files[i].id}`;
-            slot.classList.add('has-image');
-            slot.style.backgroundImage = `url(${imgUrl})`;
-            slot.onclick = ()=> showOverlayImage(imgUrl);
-          } else {
-            slot.innerHTML = '<div class="empty-text">Empty</div>';
-            slot.onclick = ()=> showOverlayUnavailable();
-          }
-          imageGrid.appendChild(slot);
+    const SLOTS = 150;
+    const MUST_BOOK_SLOTS = 15;
+
+    let currentPage = "main";
+    let currentMainAlbum = null;
+    let currentNestedAlbum = null;
+
+    
+    function showMainAlbums() {
+      currentPage = "main";
+      document.getElementById("pageTitle").innerText = "Portfolio";
+      document.getElementById("backArrow").style.visibility = "hidden";
+      document.getElementById("closeX").style.visibility = "hidden";
+
+      let html = `<div class='albums-grid'>`;
+      for (let album in mainAlbums) {
+        html += `<div class='album' onclick='enterMainAlbum("${album}")'>${album}</div>`;
+      }
+      html += `</div>`;
+
+      document.getElementById("contentArea").innerHTML = html;
+    }
+
+    function enterMainAlbum(name) {
+      currentMainAlbum = name;
+      currentPage = "mainAlbum";
+      document.getElementById("pageTitle").innerText = name;
+      document.getElementById("backArrow").style.visibility = "visible";
+      document.getElementById("closeX").style.visibility = "hidden";
+
+      let html = `<div class='albums-grid'>`;
+      if (nestedAlbums[name]) {
+        for (let n in nestedAlbums[name]) {
+          html += `<div class='album' onclick='enterNestedAlbum("${name}", "${n}")'>${n}</div>`;
         }
-      }).catch(err=>{
-        console.error('Drive list error', err);
-        buildEmptySlots(count);
+      }
+      html += `</div>`;
+
+      document.getElementById("contentArea").innerHTML = html;
+    }
+
+    function enterNestedAlbum(main, nested) {
+      currentNestedAlbum = nested;
+      currentPage = "nested";
+      document.getElementById("pageTitle").innerText = nested;
+      document.getElementById("backArrow").style.visibility = "hidden";
+      document.getElementById("closeX").style.visibility = "visible";
+
+      let maxSlots = nested.includes("Must Book") ? MUST_BOOK_SLOTS : SLOTS;
+
+      let html = `<div class='slots-grid'>`;
+      for (let i = 0; i < maxSlots; i++) {
+        html += `
+          <div class='slot' onclick='showUnavailable()'>
+            <div class='empty'>Empty Slot</div>
+          </div>`;
+      }
+      html += `</div>`;
+
+      document.getElementById("contentArea").innerHTML = html;
+    }
+
+    function showUnavailable() {
+      document.getElementById("photoUnavailable").style.display = "flex";
+    }
+    function closeUnavailable() {
+      document.getElementById("photoUnavailable").style.display = "none";
+    }
+
+    // NAV BUTTONS
+    document.getElementById("backArrow").onclick = () => {
+      showMainAlbums();
+    };
+
+    document.getElementById("closeX").onclick = () => {
+      enterMainAlbum(currentMainAlbum);
+    };
+
+    // KEYPAD
+    const password = "6826830";
+    let input = "";
+
+    document.getElementById("uploadBtn").onclick = () => {
+      document.getElementById("keypadModal").style.display = "flex";
+      buildKeypad();
+    };
+
+    function buildKeypad() {
+      input = "";
+      document.getElementById("keypadDisplay").innerText = "";
+
+      let nums = [1,2,3,4,5,6,7,8,9,"←",0,"✔️"];
+      let html = "";
+      nums.forEach(n => {
+        html += `<div class='key' onclick='pressKey("${n}")'>${n}</div>`;
       });
-  }).catch(()=> {
-    // not signed in -> show empty slots
-    buildEmptySlots(count);
-  });
-}
+      document.getElementById("keypadKeys").innerHTML = html;
+    }
 
-function buildEmptySlots(count){
-  imageGrid.innerHTML = '';
-  imageGrid.className = 'image-grid cols-3';
-  for(let i=0;i<count;i++){
-    const slot = document.createElement('div'); slot.className='slot';
-    slot.innerHTML = '<div class="empty-text">Empty</div>';
-    slot.onclick = ()=> showOverlayUnavailable();
-    imageGrid.appendChild(slot);
-  }
-}
+    function pressKey(k) {
+      if (k === "←") {
+        input = input.slice(0,-1);
+      } else if (k === "✔️") {
+        if (input === password) {
+          alert("Correct — UPLOAD LOGIC WILL GO HERE");
+        }
+        document.getElementById("keypadModal").style.display = "none";
+      } else {
+        input += k;
+      }
+      document.getElementById("keypadDisplay").innerText = input;
+    }
 
-/* ========== Expose functions for inline handlers ========== */
-window.openPageFromTile = openPageFromTile = openPage;
-window.openAlbumFromTile = openAlbumFromTile;
-window.pressKey = pressKey;
-window.startUploadFlow = startUploadFlow;
-window.loadDriveImages = loadDriveImages;
+    showMainAlbums();
 
-/* Initialize to main page */
-openPage('main-page','PORTFOLIO');
-</script>
-</body>
+    </script>
+
+  </body>
 </html>

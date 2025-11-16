@@ -1,257 +1,594 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>PWRS.PICS PORTFOLIO</title>
+
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;700&display=swap" rel="stylesheet">
+
 <style>
-body {
-    margin:0; padding:0;
-    font-family:"Montserrat",sans-serif;
-    background: linear-gradient(135deg,#0a1f44,#113b6b,#1f6f8b,#99d8d0);
-    background-size:400% 400%;
-    animation: gradientShift 12s ease infinite;
-    color:white;
-    text-align:center;
-    min-height:100vh;
-    overflow-x:hidden;
-}
-@keyframes gradientShift {
-    0%{background-position:0% 50%;}
-    50%{background-position:100% 50%;}
-    100%{background-position:0% 50%;}
-}
-h1 {font-size:2rem;margin:25px 0 5px 0;font-weight:700;color:#d6f3ff;text-shadow:0 0 10px rgba(0,155,255,0.5);letter-spacing:1px;line-height:1.2em;}
-.subtitle {font-size:2rem;display:block;margin-top:0.2em;}
-.page-container {width:95%;max-width:430px;margin:0 auto 20px auto;padding-top:10px;}
-.album-grid {display:grid;grid-template-columns:repeat(2,1fr);gap:18px;justify-content:center;margin-top:10px;}
-.album {background:rgba(255,255,255,0.12);border:2px solid rgba(255,255,255,0.35);border-radius:14px;padding:20px;backdrop-filter:blur(6px);cursor:pointer;transition:transform 0.25s ease,background 0.25s ease,box-shadow 0.25s ease;height:150px;display:flex;justify-content:center;align-items:center;font-size:1.1rem;font-weight:500;color:#d6f3ff;text-shadow:0 0 6px rgba(0,155,255,0.35);}
-.page#main-page .album:hover {transform:scale(1.05) translateY(-3px);background:rgba(255,255,255,0.22);box-shadow:0 6px 20px rgba(0,155,255,0.25);}
-.album:hover {transform:scale(1.04);background:rgba(255,255,255,0.22);}
-.arrow-btn,.x-btn {position:fixed;top:15px;left:15px;font-size:1.2rem;background:rgba(255,255,255,0.18);border:2px solid rgba(255,255,255,0.35);border-radius:6px;padding:8px 12px;cursor:pointer;z-index:9999;transition:transform 0.2s ease,background 0.2s ease;}
-.arrow-btn:hover,.x-btn:hover {transform:scale(1.08);background:rgba(255,255,255,0.28);}
-.arrow-btn {display:block;}
-.x-btn {display:none;}
-.image-grid {display:grid;grid-template-columns:repeat(auto-fit,minmax(100px,1fr));gap:12px;justify-content:center;max-width:430px;margin:0 auto;}
-.shimmer {width:100%;aspect-ratio:1/1;border-radius:8px;border:2px solid rgba(255,255,255,0.25);background:linear-gradient(90deg,rgba(255,255,255,0.05) 0%,rgba(255,255,255,0.15) 50%,rgba(255,255,255,0.05) 100%);background-size:200% 100%;animation:shimmerMove 1.2s infinite;display:flex;justify-content:center;align-items:center;font-weight:500;color:#d6f3ff;text-shadow:0 0 6px rgba(0,155,255,0.35);cursor:pointer;position:relative;transition:transform 0.2s ease,background 0.2s ease,box-shadow 0.2s ease;}
-.shimmer:hover {transform:scale(1.03);background:rgba(255,255,255,0.18);box-shadow:0 0 12px rgba(0,155,255,0.25);}
-@keyframes shimmerMove {0%{background-position:-200% 0;}100%{background-position:200% 0;}}
-.fade-in {opacity:0;animation:fadeIn 0.6s forwards;}
-@keyframes fadeIn {to{opacity:1;}}
-.page {display:none;opacity:0;transform:scale(0.98);transition:opacity 0.3s ease,transform 0.3s ease;}
-.page.active {display:block;opacity:1;transform:scale(1);}
-.photo-overlay {display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.7);justify-content:center;align-items:center;z-index:9999;opacity:0;animation:fadeInOverlay 0.3s forwards;}
-@keyframes fadeInOverlay {from{opacity:0;}to{opacity:1;}}
-.photo-message {background:rgba(255,255,255,0.12);border:2px solid rgba(255,255,255,0.35);border-radius:12px;width:80%;max-width:400px;padding:20px;text-align:center;color:#d6f3ff;font-weight:600;display:flex;flex-direction:column;justify-content:center;align-items:center;}
-.close-photo-btn {margin-top:15px;padding:8px 12px;border:none;background:rgba(255,255,255,0.25);border-radius:8px;color:#d6f3ff;cursor:pointer;font-weight:500;font-size:1.2rem;transition:0.2s;}
-.close-photo-btn:hover {background:rgba(255,255,255,0.35);transform:scale(1.03);}
-.upload-btn {margin:15px;padding:8px 12px;background:rgba(0,0,0,0.3);border:2px solid rgba(255,255,255,0.35);border-radius:8px;color:#d6f3ff;font-size:1rem;cursor:pointer;display:none;}
-footer {margin-top:20px;font-size:0.8rem;color:#d6f3ff;}
+  :root{
+    --accent: #0a1f44;
+    --glow: rgba(0,155,255,0.35);
+    --panel: rgba(255,255,255,0.12);
+    --panel-strong: rgba(255,255,255,0.25);
+  }
+
+  html,body{height:100%;margin:0;font-family:"Montserrat",sans-serif;background:linear-gradient(135deg,#0a1f44,#113b6b,#1f6f8b,#99d8d0);background-size:400% 400%;animation:gradientShift 12s ease infinite;color:#fff;}
+  @keyframes gradientShift{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+
+  header{padding:20px 12px 8px 12px;text-align:center;position:relative;}
+  header h1{margin:0;font-size:30px;line-height:1; color:#d6f3ff; text-shadow:0 0 10px var(--glow); font-weight:700;}
+  header .subtitle{display:block;font-size:28px; color:#d6f3ff; margin-top:6px; letter-spacing:1px}
+
+  /* fixed top-left controls (arrow and X) */
+  .control-btn{
+    position:fixed; top:14px; left:14px;
+    display:flex; align-items:center; justify-content:center;
+    gap:0; z-index:1200;
+    background:var(--panel); border:2px solid rgba(255,255,255,0.35);
+    border-radius:6px; padding:8px 12px; cursor:pointer;
+    font-size:18px; color:#d6f3ff;
+    transition:transform .18s ease, background .18s;
+  }
+  .control-btn:hover{transform:scale(1.06); background:var(--panel-strong);}
+
+  /* upload button (only shown on images page) */
+  .upload-btn{
+    position:fixed; top:14px; right:14px; z-index:1200;
+    display:none;
+    background:rgba(255,255,255,0.12); border:1px solid rgba(255,255,255,0.2);
+    color:#d6f3ff; padding:8px 12px; border-radius:8px; cursor:pointer;
+  }
+  .upload-btn:hover{background:rgba(255,255,255,0.2)}
+
+  .page-container{width:95%; max-width:430px; margin: 12px auto 88px; } /* footer reserved bottom */
+
+  .album-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:16px; margin-top:12px; }
+
+  .album{
+    height:150px; border-radius:14px; display:flex; align-items:center; justify-content:center;
+    background:var(--panel); border:2px solid rgba(255,255,255,0.35); backdrop-filter:blur(6px);
+    cursor:pointer; transition:transform .2s ease, box-shadow .2s ease;
+    text-align:center; padding:12px; font-weight:600; color:#d6f3ff; text-shadow:0 0 6px var(--glow);
+  }
+  .album:hover{ transform:translateY(-4px) scale(1.03); background:rgba(255,255,255,0.18); box-shadow:0 8px 28px rgba(0,0,0,0.25); }
+
+  /* images grid */
+  .image-grid{ display:grid; gap:12px; margin-top:18px; justify-items:stretch; }
+  /* responsive columns */
+  .image-grid.cols-3{ grid-template-columns: repeat(3, 1fr); max-width:430px; margin:0 auto; }
+  .image-grid.cols-auto{ grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); max-width:100%; }
+
+  .slot{
+    width:100%; aspect-ratio:1/1; border-radius:8px; overflow:hidden; position:relative;
+    background:linear-gradient(90deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.15) 50%, rgba(255,255,255,0.05) 100%);
+    border:2px solid rgba(255,255,255,0.25); display:flex; align-items:center; justify-content:center;
+    color:#d6f3ff; font-weight:600; cursor:pointer;
+    background-size:200% 100%; animation:shimmer 1.2s infinite;
+    transition:transform .15s ease, box-shadow .15s ease, background .15s ease;
+  }
+  .slot:hover{ transform:scale(1.03); box-shadow:0 6px 18px rgba(0,0,0,0.25); background:rgba(255,255,255,0.12)}
+  @keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
+
+  .slot.has-image{ animation:none; background-size:cover; background-position:center; border:2px solid rgba(0,0,0,0.25); }
+  .slot .empty-text{ pointer-events:none; }
+
+  /* overlay for image / unavailable */
+  .overlay{
+    position:fixed; inset:0; display:none; z-index:2000; align-items:center; justify-content:center;
+    background:rgba(0,0,0,0.72);
+  }
+  .overlay .box{
+    background:rgba(255,255,255,0.12); border:2px solid rgba(255,255,255,0.35); color:#d6f3ff;
+    padding:18px; border-radius:12px; max-width:92%; width:420px; text-align:center;
+  }
+  .overlay img{ max-width:100%; border-radius:8px; display:block; margin-bottom:12px; }
+  .overlay .close-btn{
+    margin-top:12px; padding:8px 12px; border-radius:8px; border:none; cursor:pointer; font-size:16px;
+    background:rgba(255,255,255,0.18); color:#d6f3ff;
+  }
+  .overlay .close-btn:hover{ background:rgba(255,255,255,0.28); transform:scale(1.03); }
+
+  /* keypad overlay */
+  #keypadOverlay{ display:none; position:fixed; inset:0; z-index:2100; background:rgba(0,0,0,0.75); align-items:center; justify-content:center; }
+  .keypadCard{ background:rgba(255,255,255,0.12); border:2px solid rgba(255,255,255,0.35); padding:16px; border-radius:10px; color:#d6f3ff; width:260px; text-align:center;}
+  .keypadDisplay{ font-size:20px; letter-spacing:6px; margin-bottom:12px; min-height:26px; }
+  .keypadGrid{ display:grid; grid-template-columns:repeat(3,1fr); gap:8px; }
+  .key{ padding:12px; font-size:18px; border-radius:8px; border:none; background:rgba(0,155,255,0.18); color:white; cursor:pointer; }
+  .key:active{ transform:scale(.98); }
+  .key.clear{ background:rgba(255,255,255,0.12); }
+
+  /* footer fixed */
+  #footer{ position:fixed; left:0; right:0; bottom:0; height:48px; display:flex; align-items:center; justify-content:center; background:rgba(0,0,0,0.18); color:#d6f3ff; font-size:14px; z-index:1000; }
+
+  /* small screen adjustments */
+  @media (max-width:430px){
+    header h1{ font-size:24px } header .subtitle{ font-size:20px }
+    .album{ height:130px }
+    .control-btn{ padding:7px 10px; font-size:16px }
+  }
 </style>
 </head>
 <body>
-<h1>PWRS.PICS<br><span class="subtitle">PORTFOLIO</span></h1>
 
-<button class="arrow-btn" onclick="window.location.href='https://pwrspics.github.io'">←</button>
-<button class="x-btn" onclick="goBack()">✕</button>
+<header>
+  <h1 id="titleTop">PWRS.PICS<br><span class="subtitle" id="titleBottom">PORTFOLIO</span></h1>
+</header>
+
+<!-- arrow (main page) -->
+<button id="arrowBtn" class="control-btn" title="Back to home">←</button>
+
+<!-- x button (other pages) -->
+<button id="xBtn" class="control-btn" style="display:none" title="Back">✕</button>
+
+<!-- upload button (only visible on images-page) -->
+<button id="uploadBtn" class="upload-btn">Upload</button>
 
 <div class="page-container">
-    <div class="page active" id="main-page">
-        <div class="album-grid">
-            <div class="album" onclick="openPage('sports-page','Sports')">Sports</div>
-            <div class="album" onclick="openPage('outdoors-page','Outdoors')">Outdoors</div>
-            <div class="album" onclick="openPage('private-page','Private Requests')" style="grid-column: span 2;">Private Requests</div>
-        </div>
+  <!-- MAIN PAGE -->
+  <section id="main-page" class="page active">
+    <div class="album-grid">
+      <div class="album" data-visible="Sports" onclick="openPage('sports-page', 'Sports')">Sports</div>
+      <div class="album" data-visible="Outdoors" onclick="openPage('outdoors-page', 'Outdoors')">Outdoors</div>
+      <div class="album" data-visible="Private Requests" style="grid-column:span 2" onclick="openPage('private-page','Private Requests')">Private Requests</div>
     </div>
+  </section>
 
-    <div class="page" id="sports-page">
-        <div class="album-grid">
-            <div class="album" onclick="openAlbum('Football')">Football</div>
-            <div class="album" onclick="openAlbum('Basketball')">Basketball</div>
-            <div class="album" onclick="openAlbum('Baseball')">Baseball</div>
-            <div class="album" onclick="openAlbum('Track')">Track/Cross Country</div>
-            <div class="album" onclick="openAlbum('Lacrosse')">Lacrosse</div>
-            <div class="album" onclick="openAlbum('Frisbee')">Ultimate Frisbee</div>
-        </div>
+  <!-- SPORTS PAGE -->
+  <section id="sports-page" class="page">
+    <div class="album-grid">
+      <div class="album" data-visible="Football" onclick="openAlbum('Football','Football')">Football</div>
+      <div class="album" data-visible="Basketball" onclick="openAlbum('Basketball','Basketball')">Basketball</div>
+      <div class="album" data-visible="Baseball" onclick="openAlbum('Baseball','Baseball')">Baseball</div>
+      <div class="album" data-visible="Track/Cross Country" onclick="openAlbum('Track','Track/Cross Country')">Track/Cross Country</div>
+      <div class="album" data-visible="Lacrosse" onclick="openAlbum('Lacrosse','Lacrosse')">Lacrosse</div>
+      <div class="album" data-visible="Ultimate Frisbee" onclick="openAlbum('Frisbee','Ultimate Frisbee')">Ultimate Frisbee</div>
     </div>
+  </section>
 
-    <div class="page" id="outdoors-page">
-        <div class="album-grid">
-            <div class="album" onclick="openAlbum('Sunsets')">Sunsets</div>
-            <div class="album" onclick="openAlbum('Animals')">Animals</div>
-            <div class="album" onclick="openAlbum('Hydro')">Hydro Photography</div>
-            <div class="album" onclick="openAlbum('Night')">Night Shots</div>
-        </div>
+  <!-- OUTDOORS PAGE -->
+  <section id="outdoors-page" class="page">
+    <div class="album-grid">
+      <div class="album" data-visible="Sunsets" onclick="openAlbum('Sunsets','Sunsets')">Sunsets</div>
+      <div class="album" data-visible="Animals" onclick="openAlbum('Animals','Animals')">Animals</div>
+      <div class="album" data-visible="Hydro Photography" onclick="openAlbum('Hydro Photography','Hydro Photography')">Hydro Photography</div>
+      <div class="album" data-visible="Night Shots" onclick="openAlbum('Night Shots','Night Shots')">Night Shots</div>
     </div>
+  </section>
 
-    <div class="page" id="private-page">
-        <div class="album-grid">
-            <div class="album" onclick="openAlbum('MustBook1')">Must Book</div>
-            <div class="album" onclick="openAlbum('MustBook2')">Must Book</div>
-            <div class="album" onclick="openAlbum('MustBook3')">Must Book</div>
-            <div class="album" onclick="openAlbum('MustBook4')">Must Book</div>
-        </div>
+  <!-- PRIVATE REQUESTS PAGE -->
+  <section id="private-page" class="page">
+    <div class="album-grid">
+      <div class="album" data-visible="Must Book" onclick="openAlbum('MustBook1','Must Book')">Must Book</div>
+      <div class="album" data-visible="Must Book" onclick="openAlbum('MustBook2','Must Book')">Must Book</div>
+      <div class="album" data-visible="Must Book" onclick="openAlbum('MustBook3','Must Book')">Must Book</div>
+      <div class="album" data-visible="Must Book" onclick="openAlbum('MustBook4','Must Book')">Must Book</div>
     </div>
+  </section>
 
-    <div class="page" id="images-page">
-        <button class="upload-btn" onclick="authenticateUpload()">Upload Photo</button>
-        <div id="image-grid" class="image-grid"></div>
+  <!-- IMAGES PAGE (grid) -->
+  <section id="images-page" class="page">
+    <div id="imageGridWrapper">
+      <div id="image-grid" class="image-grid cols-3"></div>
     </div>
+  </section>
 </div>
 
-<footer>© PWRS.PICS</footer>
+<!-- overlay (photo or unavailable) -->
+<div id="overlay" class="overlay" aria-hidden="true">
+  <div class="box" id="overlayBox">
+    <!-- dynamically filled -->
+  </div>
+</div>
+
+<!-- keypad overlay -->
+<div id="keypadOverlay" style="display:none;">
+  <div class="keypadCard">
+    <div class="keypadDisplay" id="keypadDisplay"></div>
+    <div class="keypadGrid">
+      <button class="key" onclick="pressKey('1')">1</button>
+      <button class="key" onclick="pressKey('2')">2</button>
+      <button class="key" onclick="pressKey('3')">3</button>
+      <button class="key" onclick="pressKey('4')">4</button>
+      <button class="key" onclick="pressKey('5')">5</button>
+      <button class="key" onclick="pressKey('6')">6</button>
+      <button class="key" onclick="pressKey('7')">7</button>
+      <button class="key" onclick="pressKey('8')">8</button>
+      <button class="key" onclick="pressKey('9')">9</button>
+      <button class="key clear" onclick="pressKey('C')">C</button>
+      <button class="key" onclick="pressKey('0')">0</button>
+      <button class="key" onclick="pressKey('E')">OK</button>
+    </div>
+  </div>
+</div>
+
+<div id="footer">2025 @pwrs.pics</div>
 
 <script src="https://apis.google.com/js/api.js"></script>
 <script>
-let historyStack=[];
-let driveFolderIDs={
-    'Outdoors':'1h7vd3dfW4c6IFDxkr_eYhoIcGn69KVpl',
-    'Sports':'1Wue8l85omJXn-_xO9PdYn0cariXbdMwx',
-    'Private Requests':'1O3HmiO3-yqgW8K0plSRge8HBE45X9bvP',
-    'Animals':'1e4tnwMfsC39hQM296vZVdbZ556Q93o9t',
-    'Hydro Photography':'1HukYKViFXLKloRDwgX3X3GLmIV0YyFzn',
-    'Sunsets':'14y0JpKpcIcHxeDR1eDfOFSv5m4HEuRcF',
-    'Night Shots':'1mkKr0BoG-pvaz98HW2qjOY8I1_CIR57T',
-    'Football':'1CZnrl75VhSGneOPpWJ26fdESNBG4S4CB',
-    'Baseball':'1nIZL73r9L6qytwoD11NfHzSR17azVSKh',
-    'Basketball':'1BnqyWGwyPppOYSK5Ns3SxgAXOnZb0KfI',
-    'Lacrosse':'1x-XsL3CWUpBh33Uv7HYlDKiyZxfV2k3M',
-    'Track/Cross Country':'1_nangpmm5RwhusoNTGNJmOeYvhpqagxd',
-    'Ultimate Frisbee':'1AoCKIlQLiZD-YEhbU3NTOO-LBtcSwvxS',
-    'MustBook1':'190dh7F-7Vf5G2Q0-58ScfPD2zIiOS2AR',
-    'MustBook2':'1PYY34VVmF9M43ueMCaWQAVD6P7G6F6qK',
-    'MustBook3':'1WHMzEHy82ueGdjLa7r26WwPunFPT0Cv6',
-    'MustBook4':'1km8-78Gm_Vcv1rgG-wXIzhGOu3eoefG4'
+/* ======================
+   CONFIG / CONSTANTS
+   ====================== */
+
+const CLIENT_ID = '802750156240-0an68nrlfqcb970g0lv05chitdfasm5i.apps.googleusercontent.com';
+const API_KEY   = 'AIzaSyBdRdRd7pXYgfeMqqWJ0mIHJlE-D6cuoScnc'.replace('RdRd','BdRd'); // small obfuscation not required
+const SCOPES = 'https://www.googleapis.com/auth/drive.file';
+
+const DRIVE_IDS = {
+  "Outdoors":"1h7vd3dfW4c6IFDxkr_eYhoIcGn69KVpl",
+  "Sports":"1Wue8l85omJXn-_xO9PdYn0cariXbdMwx",
+  "Private Requests":"1O3HmiO3-yqgW8K0plSRge8HBE45X9bvP",
+  "Animals":"1e4tnwMfsC39hQM296vZVdbZ556Q93o9t",
+  "Hydro Photography":"1HukYKViFXLKloRDwgX3X3GLmIV0YyFzn",
+  "Sunsets":"14y0JpKpcIcHxeDR1eDfOFSv5m4HEuRcF",
+  "Night Shots":"1mkKr0BoG-pvaz98HW2qjOY8I1_CIR57T",
+  "Football":"1CZnrl75VhSGneOPpWJ26fdESNBG4S4CB",
+  "Baseball":"1nIZL73r9L6qytwoD11NfHzSR17azVSKh",
+  "Basketball":"1BnqyWGwyPppOYSK5Ns3SxgAXOnZb0KfI",
+  "Lacrosse":"1x-XsL3CWUpBh33Uv7HYlDKiyZxfV2k3M",
+  "Track":"1_nangpmm5RwhusoNTGNJmOeYvhpqagxd",
+  "Frisbee":"1AoCKIlQLiZD-YEhbU3NTOO-LBtcSwvxS",
+  "MustBook1":"190dh7F-7Vf5G2Q0-58ScfPD2zIiOS2AR",
+  "MustBook2":"1PYY34VVmF9M43ueMCaWQAVD6P7G6F6qK",
+  "MustBook3":"1WHMzEHy82ueGdjLa7r26WwPunFPT0Cv6",
+  "MustBook4":"1km8-78Gm_Vcv1rgG-wXIzhGOu3eoefG4"
 };
-let clientId='802750156240-0an68nrlfqcb970g0lv05chitdfasm5i.apps.googleusercontent.com';
-let apiKey='AIzaSyBdRd7pXYgfeMqqWJ0mIHJlE-D6cuoScnc';
-let scopes="https://www.googleapis.com/auth/drive.file";
-let currentAlbum="";
 
-function initClient() {
-    gapi.client.init({
-        apiKey: apiKey,
-        clientId: clientId,
-        scope: scopes,
-        discoveryDocs:["https://www.googleapis.com/discovery/v1/apis/drive/v3/rest"]
-    });
+/* ======================
+   UI ELEMENT REFERENCES
+   ====================== */
+
+const arrowBtn = document.getElementById('arrowBtn');
+const xBtn = document.getElementById('xBtn');
+const uploadBtn = document.getElementById('uploadBtn');
+const titleTop = document.getElementById('titleTop');
+const titleBottom = document.getElementById('titleBottom');
+const imageGrid = document.getElementById('image-grid');
+const overlay = document.getElementById('overlay');
+const overlayBox = document.getElementById('overlayBox');
+const keypadOverlay = document.getElementById('keypadOverlay');
+const keypadDisplay = document.getElementById('keypadDisplay');
+const footer = document.getElementById('footer');
+
+/* ======================
+   STATE
+   ====================== */
+
+let historyStack = []; // array of {pageId, visibleTitle}
+let currentAlbum = null; // e.g. "Football"
+let keypadValue = '';    // for upload code
+let gapiInitialized = false;
+
+/* ======================
+   GAPI Init
+   ====================== */
+
+function handleClientLoad(){
+  gapi.load('client:auth2', initClient);
 }
-gapi.load('client:auth2', initClient);
-
-function openPage(id, albumTitle){
-    document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
-    document.getElementById(id).classList.add('active');
-    document.querySelector('.arrow-btn').style.display=id==='main-page'?'block':'none';
-    document.querySelector('.x-btn').style.display=id==='main-page'?'none':'block';
-    if(id==='main-page'){
-        document.querySelector('h1').innerHTML='PWRS.PICS<br><span class="subtitle">PORTFOLIO</span>';
-    }else{
-        document.querySelector('h1').innerHTML=`PWRS.PICS<br><span class="subtitle">${albumTitle.toUpperCase()}</span>`;
+function initClient(){
+  gapi.client.init({
+    apiKey: API_KEY,
+    clientId: CLIENT_ID,
+    discoveryDocs: ["https://www.googleapis.com/discovery/v1/apis/drive/v3/rest"],
+    scope: SCOPES
+  }).then(()=>{
+    gapiInitialized = true;
+    // Keep user signed in if already authorized
+    if(gapi.auth2.getAuthInstance().isSignedIn.get()){
+      // ok
     }
-    historyStack.push(id);
+  }).catch(err=>console.error('GAPI init error',err));
+}
+handleClientLoad();
+
+/* ======================
+   NAVIGATION / TITLE
+   ====================== */
+
+function setTitle(visible){
+  titleTop.innerText = 'PWRS.PICS';
+  titleBottom.innerText = (visible || 'PORTFOLIO').toUpperCase();
 }
 
-function openAlbum(albumName){
-    currentAlbum=albumName;
-    buildShimmerGrid(albumName);
-    document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
-    document.getElementById("images-page").classList.add('active');
-    document.querySelector('.x-btn').style.display="block";
-    document.querySelector('.arrow-btn').style.display="none";
-    document.querySelector('.upload-btn').style.display="inline-block";
-    loadImagesFromDrive(albumName);
-    historyStack.push("images-page");
+function openPage(pageId, visibleTitle){
+  // hide all pages
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  const page = document.getElementById(pageId);
+  page.classList.add('active');
+
+  // arrow visible only on main page
+  arrowBtn.style.display = pageId === 'main-page' ? 'flex' : 'none';
+  // x visible on non-main pages
+  xBtn.style.display = pageId === 'main-page' ? 'none' : 'flex';
+
+  // upload only on images page
+  uploadBtn.style.display = pageId === 'images-page' ? 'block' : 'none';
+
+  // main page should not scroll
+  if(pageId === 'main-page'){ document.documentElement.style.overflowY = 'hidden'; document.body.style.overflowY = 'hidden'; }
+  else { document.documentElement.style.overflowY = 'auto'; document.body.style.overflowY = 'auto'; }
+
+  setTitle( pageId === 'main-page' ? 'PORTFOLIO' : visibleTitle );
+  historyStack.push({pageId, visibleTitle});
 }
 
-function buildShimmerGrid(albumName){
-    const container=document.getElementById("image-grid");
-    container.innerHTML="";
-    let count=albumName.startsWith("MustBook")?15:150;
-    for(let i=0;i<count;i++){
-        const slot=document.createElement("div");
-        slot.classList.add("shimmer");
-        slot.onclick=()=>openPhotoOverlay(null);
-        container.appendChild(slot);
+arrowBtn.addEventListener('click', ()=>{ window.location.href = 'https://pwrs.pics.github.io' }); // user's desired home link
+
+xBtn.addEventListener('click', ()=>{
+  // go back to previous page in history stack and restore the title
+  historyStack.pop(); // remove current
+  const prev = historyStack.pop() || {pageId:'main-page', visibleTitle:'PORTFOLIO'};
+  openPage(prev.pageId, prev.visibleTitle);
+});
+
+/* ======================
+   Album & album->images navigation
+   ====================== */
+
+function openAlbum(albumKey, visibleName){
+  // albumKey corresponds to keys in DRIVE_IDS (e.g. "Football", "MustBook1")
+  currentAlbum = albumKey;
+  openPage('images-page', visibleName || albumKey);
+  loadDriveImages(albumKey, visibleName);
+}
+
+/* helper when clicking a nested album tile from album-page */
+function openAlbumFromTile(key, visible){
+  openAlbum(key, visible);
+}
+
+/* top-level album pages open */
+function openPageFromTile(pageId, visible){
+  openPage(pageId, visible);
+}
+
+/* ======================
+   SHIMMER & GRID BUILDING
+   ====================== */
+
+function buildShimmers(count){
+  imageGrid.innerHTML = '';
+  // choose cols-3 for 3 columns layout on phones
+  imageGrid.className = 'image-grid cols-3';
+  for(let i=0;i<count;i++){
+    const s = document.createElement('div');
+    s.className = 'slot';
+    s.innerHTML = '<div class="empty-text">Loading</div>';
+    imageGrid.appendChild(s);
+  }
+}
+
+/* ======================
+   OVERLAY (photo / unavailable)
+   ====================== */
+
+function showOverlayWithImage(imgSrc){
+  overlayBox.innerHTML = '';
+  const img = document.createElement('img');
+  img.src = imgSrc;
+  overlayBox.appendChild(img);
+
+  const btn = document.createElement('button');
+  btn.className = 'close-btn';
+  btn.innerText = 'Close';
+  btn.onclick = hideOverlay;
+  overlayBox.appendChild(btn);
+
+  overlay.style.display = 'flex';
+  overlay.setAttribute('aria-hidden','false');
+  // block background clicks (overlay covers page)
+}
+
+function showUnavailableOverlay(){
+  overlayBox.innerHTML = '';
+  const txt = document.createElement('div');
+  txt.style.fontSize = '18px';
+  txt.style.marginBottom = '10px';
+  txt.innerText = 'Photo Unavailable';
+  overlayBox.appendChild(txt);
+
+  const close = document.createElement('button');
+  close.className = 'close-btn';
+  close.innerText = 'Close';
+  close.onclick = hideOverlay;
+  overlayBox.appendChild(close);
+
+  overlay.style.display = 'flex';
+  overlay.setAttribute('aria-hidden','false');
+}
+
+function hideOverlay(){
+  overlay.style.display = 'none';
+  overlay.setAttribute('aria-hidden','true');
+}
+
+/* clicking overlay background should not close; must use close button */
+overlay.addEventListener('click', (e)=>{
+  if(e.target === overlay){
+    // do nothing (prevent closing by clicking background as requested)
+    e.stopPropagation();
+  }
+});
+
+/* ======================
+   KEYPAD (UPLOAD CODE)
+   ====================== */
+
+function promptKeypad(){
+  // only available on images page
+  keypadValue = '';
+  keypadDisplay.innerText = '';
+  keypadOverlay.style.display = 'flex';
+}
+function pressKey(k){
+  if(k === 'C'){ keypadValue = ''; keypadDisplay.innerText = ''; return; }
+  if(k === 'E' || k === 'OK'){
+    if(keypadValue === '6826830'){
+      keypadOverlay.style.display = 'none';
+      // proceed with upload
+      startUploadFlow();
+    } else {
+      alert('Incorrect code');
+      keypadValue = '';
+      keypadDisplay.innerText = '';
     }
+    return;
+  }
+  // add digit and mask display
+  if(keypadValue.length < 10){
+    keypadValue += k;
+    keypadDisplay.innerText = keypadValue.replace(/./g,'●');
+  }
 }
 
-function openPhotoOverlay(imgUrl){
-    const overlay=document.createElement('div');
-    overlay.className='photo-overlay';
-    overlay.style.display='flex';
-    const box=document.createElement('div'); box.className='photo-message';
-    const text=document.createElement('div'); 
-    text.innerText=imgUrl?'':'Photo Unavailable';
-    if(imgUrl){
-        const image=document.createElement('img'); image.src=imgUrl;
-        image.style.maxWidth='100%'; image.style.borderRadius='8px';
-        box.appendChild(image);
-    }else{box.appendChild(text);}
-    const btn=document.createElement('button'); btn.className='close-photo-btn';
-    btn.innerText='Close';
-    btn.onclick=()=>document.body.removeChild(overlay);
-    box.appendChild(btn); overlay.appendChild(box); document.body.appendChild(overlay);
+/* hide keypad if user taps background - use safe close */
+keypadOverlay.addEventListener('click', (e)=>{ if(e.target === keypadOverlay) { keypadOverlay.style.display = 'none'; keypadValue=''; keypadDisplay.innerText=''; } });
+
+/* ======================
+   GDRIVE: upload & list
+   ====================== */
+
+function ensureSignedIn(){
+  if(!gapiInitialized){ alert('Google API not initialized yet. Try again in a moment.'); return Promise.reject(); }
+  const auth = gapi.auth2.getAuthInstance();
+  if(auth.isSignedIn.get()) return Promise.resolve(auth.currentUser.get().getAuthResponse(true).access_token);
+  return auth.signIn().then(()=> auth.currentUser.get().getAuthResponse(true).access_token);
 }
 
-function goBack(){
-    historyStack.pop();
-    let page=historyStack.pop()||"main-page";
-    let albumName="";
-    if(page==="sports-page") albumName="Sports";
-    else if(page==="outdoors-page") albumName="Outdoors";
-    else if(page==="private-page") albumName="Private Requests";
-    document.querySelector('h1').innerHTML=page==='main-page'? 'PWRS.PICS<br><span class="subtitle">PORTFOLIO</span>':`PWRS.PICS<br><span class="subtitle">${albumName.toUpperCase()}</span>`;
-    openPage(page, albumName);
+/* startUploadFlow: opens file picker and uploads selected files into currentAlbum's folder */
+function startUploadFlow(){
+  if(!currentAlbum){ alert('No album selected'); return; }
+  ensureSignedIn().then((token)=>{
+    const folderId = DRIVE_IDS[currentAlbum];
+    if(!folderId){ alert('Folder ID not found for album'); return; }
+
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.multiple = true;
+    input.accept = 'image/*';
+    input.onchange = (e)=>{
+      const files = Array.from(e.target.files);
+      if(files.length === 0) return;
+      // upload each file
+      const accessToken = gapi.auth.getToken().access_token;
+      files.forEach(file => {
+        const metadata = { name: file.name, parents: [folderId] };
+        const form = new FormData();
+        form.append('metadata', new Blob([JSON.stringify(metadata)], {type: 'application/json'}));
+        form.append('file', file);
+        fetch('https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart&fields=id', {
+          method: 'POST',
+          headers: { 'Authorization': 'Bearer ' + accessToken },
+          body: form
+        })
+        .then(r => r.json())
+        .then(data => {
+          // refresh grid after upload completes
+          setTimeout(()=> loadDriveImages(currentAlbum), 500);
+        })
+        .catch(err => console.error('Upload error', err));
+      });
+    };
+    input.click();
+  }).catch(()=>{ /* sign-in cancelled */ });
 }
 
-function authenticateUpload(){
-    let code=prompt("Enter upload code:",""); 
-    if(code==="6826830"){
-        const input=document.createElement('input');
-        input.type='file'; input.accept='image/*'; input.multiple=true;
-        input.onchange=()=>uploadFilesToDrive(input.files);
-        input.click();
-    }else{alert("Incorrect code.");}
-}
+/* loadDriveImages: show shimmer placeholders, call Drive to list images in folder,
+   then replace placeholders with images or empty slots; stops shimmer when finished */
+function loadDriveImages(albumKey, visibleName){
+  currentAlbum = albumKey;
+  const count = albumKey.startsWith('MustBook') ? 15 : 150;
+  buildShimmers(count);
 
-async function uploadFilesToDrive(files){
-    await gapi.auth2.getAuthInstance().signIn();
-    for(let file of files){
-        const metadata={name:file.name,parents:[driveFolderIDs[currentAlbum]]};
-        const accessToken=gapi.auth.getToken().access_token;
-        const form=new FormData();
-        form.append("metadata",new Blob([JSON.stringify(metadata)],{type:"application/json"}));
-        form.append("file",file);
-        await fetch("https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart&fields=id",{
-            method:"POST",
-            headers:new Headers({Authorization:"Bearer "+accessToken}),
-            body:form
-        });
+  // ensure signed in (but if not, still show empty slots)
+  ensureSignedIn().then((token)=>{
+    const folderId = DRIVE_IDS[albumKey];
+    if(!folderId){
+      // fallback to empty slots
+      buildEmptySlots(count);
+      return;
     }
-    loadImagesFromDrive(currentAlbum);
+    // Build query: files in folder and are images
+    const q = `'${folderId}' in parents and mimeType contains 'image/' and trashed=false`;
+    const url = 'https://www.googleapis.com/drive/v3/files?q=' + encodeURIComponent(q) + '&fields=files(id,name,mimeType,thumbnailLink,webContentLink)&pageSize=' + count;
+    const accessToken = gapi.auth.getToken().access_token;
+    fetch(url, { headers: { Authorization: 'Bearer ' + accessToken } })
+      .then(r => r.json())
+      .then(data => {
+        const files = (data.files || []).slice(0, count);
+        // clear grid
+        imageGrid.innerHTML = '';
+        imageGrid.className = 'image-grid cols-3';
+
+        for(let i=0;i<count;i++){
+          const slot = document.createElement('div');
+          slot.className = 'slot';
+          if(files[i]){
+            // show thumbnail (use drive direct view link)
+            const urlImg = `https://drive.google.com/uc?export=view&id=${files[i].id}`;
+            slot.classList.add('has-image');
+            slot.style.backgroundImage = `url(${urlImg})`;
+            slot.onclick = ()=> { showOverlayWithImage(urlImg); };
+          } else {
+            // empty slot
+            slot.innerHTML = '<div class="empty-text">Empty</div>';
+            slot.onclick = ()=> { showUnavailableOverlay(); };
+          }
+          imageGrid.appendChild(slot);
+        }
+      })
+      .catch(err=>{
+        console.error('Error listing Drive files', err);
+        // fallback: keep shimmer placeholders as empty slots
+        buildEmptySlots(count);
+      });
+  }).catch(()=> {
+    // not signed in; show empty slots (still clickable -> unavailable)
+    buildEmptySlots(count);
+  });
 }
 
-async function loadImagesFromDrive(albumName){
-    await gapi.client.load('drive','v3');
-    let query=`'${driveFolderIDs[albumName]}' in parents and trashed=false`;
-    let response=await gapi.client.drive.files.list({q:query,fields:"files(id,name,mimeType)"});
-    const container=document.getElementById("image-grid"); container.innerHTML="";
-    let count=albumName.startsWith("MustBook")?15:150;
-    for(let i=0;i<count;i++){
-        const slot=document.createElement("div");
-        slot.classList.add("shimmer");
-        let file=response.result.files[i];
-        if(file){
-            let url=`https://drive.google.com/uc?id=${file.id}`;
-            slot.style.backgroundImage=`url(${url})`;
-            slot.style.backgroundSize="cover";
-            slot.style.backgroundPosition="center";
-            slot.onclick=()=>openPhotoOverlay(url);
-        }else{slot.onclick=()=>openPhotoOverlay(null);}
-        container.appendChild(slot);
-    }
+function buildEmptySlots(count){
+  imageGrid.innerHTML = '';
+  imageGrid.className = 'image-grid cols-3';
+  for(let i=0;i<count;i++){
+    const slot = document.createElement('div');
+    slot.className = 'slot';
+    slot.innerHTML = '<div class="empty-text">Empty</div>';
+    slot.onclick = ()=> showUnavailableOverlay();
+    imageGrid.appendChild(slot);
+  }
 }
+
+/* ======================
+   Attach handlers to static clickable UI elements
+   ====================== */
+
+// map album tiles to openPage/openAlbum calls (these are already inline on HTML, but keep API too)
+document.addEventListener('click', (e)=>{
+  // nothing global here (we used inline handlers)
+});
+
+// Setup arrow and x sizes same: already identical class
+// Make sure X not visible on main page:
+openPage('main-page', 'PORTFOLIO');
+
+// hook upload button click (it triggers keypad)
+uploadBtn.addEventListener('click', promptKeypad);
+
+/* expose functions so inline handlers work */
+window.openPage = openPageFromTile = openPage;
+window.openAlbum = openAlbumFromTile = function(a,b){ openAlbum(a,b); };
+window.pressKey = pressKey;
+window.startUploadFlow = startUploadFlow;
+window.loadDriveImages = loadDriveImages;
+
+/* Make sure the main page cannot scroll */
+openPage('main-page','PORTFOLIO');
+
 </script>
 </body>
 </html>
